@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `SSD` (
   `Write Speed` DECIMAL NOT NULL ,
   `Read Speed` DECIMAL NOT NULL ,
   PRIMARY KEY (`Model`),
-  UNIQUE INDEX `Model_UNIQUE` (`Model` ASC),
+  UNIQUE(`Model`),
   CONSTRAINT `SSD_HArd_Drive`
   FOREIGN KEY (`Model`) REFERENCES `Hard Drive`(`Model`)
   ON DELETE CASCADE ON UPDATE CASCADE
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `HDD` (
   `Cache` DECIMAL NULL ,
   `Rpm` DECIMAL NULL ,
   PRIMARY KEY (`Model`),
-  UNIQUE INDEX `Model_UNIQUE` (`Model` ASC),
+  UNIQUE(`Model`),
   CONSTRAINT `HDD_Hard_Drive`
   FOREIGN KEY (`Model`) REFERENCES `Hard Drive`(`Model`)
   ON DELETE CASCADE ON UPDATE CASCADE
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `External HD` (
   `Connection Type` VARCHAR(45) NOT NULL,
   `External Power Supply` ENUM('Yes', 'No', 'N/S') NOT NULL,
   PRIMARY KEY (`Model`),
-  UNIQUE INDEX `Model_UNIQUE` (`Model` ASC),
+  UNIQUE (`Model`),
   CONSTRAINT `External_Hard_Drive`
   FOREIGN KEY (`Model`) REFERENCES `Hard Drive`(`Model`)
   ON DELETE CASCADE ON UPDATE CASCADE
@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `Customer Card` (
   `ID` INT NOT NULL,
   `Points Available` MEDIUMINT NOT NULL DEFAULT 0,
   `Points Used` MEDIUMINT NOT NULL DEFAULT 0,
-  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC)
+  UNIQUE(`ID`)
 )ENGINE = InnoDB;
 
 
@@ -199,9 +199,9 @@ CREATE TABLE IF NOT EXISTS `Order` (
   `ID` INT NOT NULL,
   `Products Use Together` TINYINT NOT NULL ,
   `Sum Cost` DECIMAL NOT NULL,
-  UNIQUE INDEX `Customer_UNIQUE` (`Customer` ASC),
+  UNIQUE(`Customer`),
   PRIMARY KEY (`ID`),
-  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC),
+  UNIQUE(`ID`),
   CONSTRAINT `Order_Customer`
   FOREIGN KEY (`Customer`)  REFERENCES `Customer`(`ID`)
   ON DELETE CASCADE ON UPDATE CASCADE
@@ -220,9 +220,9 @@ CREATE TABLE IF NOT EXISTS `Administrator` (
   `Grade` ENUM('Senior', 'Junior') NULL,
   `Supervisor` INT NOT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC),
+  UNIQUE(`ID`),
   INDEX `fk_Administrator_Administrator1_idx` (`Supervisor` ASC),
-  UNIQUE INDEX `Supervisor_UNIQUE` (`Supervisor` ASC),
+  UNIQUE(`Supervisor`),
   CONSTRAINT `Administrator_Supervisor`
   FOREIGN KEY (`Supervisor`) REFERENCES `Administrator`(`ID`)
   ON DELETE CASCADE ON UPDATE CASCADE
@@ -238,8 +238,8 @@ CREATE TABLE IF NOT EXISTS `Salary` (
   `Amount` DECIMAL(2) NOT NULL,
   `Administrator` INT NOT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC),
-  UNIQUE INDEX `Administrator_UNIQUE` (`Administrator` ASC),
+  UNIQUE(`ID`),
+  UNIQUE(`Administrator`),
   CONSTRAINT `Salary_Administrator`
   FOREIGN KEY (`Administrator`) REFERENCES `Administrator`(`ID`)
   ON DELETE CASCADE ON UPDATE CASCADE
