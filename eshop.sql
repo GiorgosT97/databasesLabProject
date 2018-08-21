@@ -1,10 +1,9 @@
 
-CREATE DATABASE IF NOT EXISTS `ESHOP` DEFAULT CHARACTER SET utf8 ;
+DROP DATABASE IF EXISTS `ESHOP`
+CREATE DATABASE `ESHOP` DEFAULT CHARACTER SET utf8 ;
 USE `ESHOP` ;
 
--- -----------------------------------------------------
--- Table `RAM`
--- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `RAM` (
   `Model` VARCHAR(30) UNIQUE NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
@@ -16,9 +15,6 @@ CREATE TABLE IF NOT EXISTS `RAM` (
 )ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `Motherboard`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Motherboard` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
@@ -29,16 +25,11 @@ CREATE TABLE IF NOT EXISTS `Motherboard` (
   `Size` ENUM('uATX/MicroATX', 'ATX', 'ExtendedATX', 'MiniITX', 'SSI', 'Other') NOT NULL,
   `Price` DECIMAL(2) NOT NULL,
   UNIQUE(`Model`),
-  PRIMARY KEY (`Model`),
-  CONSTRAINT `Motherboard_RAM`
-  FOREIGN KEY (`Ram Type`) REFERENCES `RAM`(`Type`)
-  ON UPDATE CASCADE ON DELETE CASCADE
+  PRIMARY KEY (`Model`)
 )ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `CPU`
--- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `CPU` (
   `Model` VARCHAR(30)  NOT NULL,
   `Supplier` ENUM('AMD', 'Intel') NOT NULL,
@@ -50,16 +41,10 @@ CREATE TABLE IF NOT EXISTS `CPU` (
   `Supply Power` INT NOT NULL,
   `Price` DECIMAL(2) NOT NULL,
   UNIQUE(`Model`),
-  PRIMARY KEY (`Model`),
-  CONSTRAINT `CPU_Motherboard`
-  FOREIGN KEY (`SOCKET`) REFERENCES `Motherboard`(`Socket`)
-  ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`Model`)
 )ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `Case`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Case` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
@@ -70,10 +55,6 @@ CREATE TABLE IF NOT EXISTS `Case` (
   UNIQUE(`Model`)
 )ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `GPU`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `GPU` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
@@ -90,10 +71,6 @@ CREATE TABLE IF NOT EXISTS `GPU` (
   UNIQUE(`Model`)
 )ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `PSU`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `PSU` (
   `Model` VARCHAR(30) NOT NULL,
   `Suppliier` VARCHAR(45) NOT NULL,
@@ -104,9 +81,6 @@ CREATE TABLE IF NOT EXISTS `PSU` (
 )ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `Hard Drive`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Hard Drive` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
@@ -119,9 +93,7 @@ CREATE TABLE IF NOT EXISTS `Hard Drive` (
 )ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `SSD`
--- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `SSD` (
   `Model` VARCHAR(30) NOT NULL,
   `Connection Type` VARCHAR(45) NOT NULL,
@@ -135,9 +107,7 @@ CREATE TABLE IF NOT EXISTS `SSD` (
 )ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `HDD`
--- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `HDD` (
   `Model` VARCHAR(30) NOT NULL,
   `Cache` DECIMAL NULL ,
@@ -150,9 +120,7 @@ CREATE TABLE IF NOT EXISTS `HDD` (
 )ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `External HD`
--- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `External HD` (
   `Model` VARCHAR(30) NOT NULL,
   `Connection Type` VARCHAR(45) NOT NULL,
@@ -165,9 +133,7 @@ CREATE TABLE IF NOT EXISTS `External HD` (
 )ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `Customer`
--- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `Customer` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NOT NULL,
@@ -180,9 +146,7 @@ CREATE TABLE IF NOT EXISTS `Customer` (
 )ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `Customer Card`
--- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `Customer Card` (
   `ID` INT NOT NULL,
   `Points Available` MEDIUMINT NOT NULL DEFAULT 0,
@@ -191,9 +155,6 @@ CREATE TABLE IF NOT EXISTS `Customer Card` (
 )ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `Order`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Order` (
   `Customer` INT NOT NULL,
   `ID` INT NOT NULL,
@@ -208,30 +169,21 @@ CREATE TABLE IF NOT EXISTS `Order` (
 )ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `Administrator`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Administrator` (
   `ID` INT NOT NULL,
-  `Name` VARCHAR(45) NULL,
-  `Surname` VARCHAR(45) NULL,
-  `E-mail` VARCHAR(45) NULL,
-  `CV` VARCHAR(60) NULL,
-  `Grade` ENUM('Senior', 'Junior') NULL,
-  `Supervisor` INT NOT NULL,
+  `Name` VARCHAR(45),
+  `Surname` VARCHAR(45),
+  `E-mail` VARCHAR(45),
+  `CV` VARCHAR(60),
+  `Grade` ENUM('Senior', 'Junior') NOT NULL,
+  `Supervisor` INT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE(`ID`),
-  INDEX `fk_Administrator_Administrator1_idx` (`Supervisor` ASC),
-  UNIQUE(`Supervisor`),
   CONSTRAINT `Administrator_Supervisor`
   FOREIGN KEY (`Supervisor`) REFERENCES `Administrator`(`ID`)
-  ON DELETE CASCADE ON UPDATE CASCADE
+  ON DELETE SET NULL ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `Salary`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Salary` (
   `ID` INT NOT NULL,
   `Month` VARCHAR(45) NOT NULL,
@@ -245,4 +197,6 @@ CREATE TABLE IF NOT EXISTS `Salary` (
   ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
+
+INSERT INTO `Administrator` VALUES(3211, 'hre', 'hwe','hwehweh', 'hwehwe', 'Senior', NULL);
 
