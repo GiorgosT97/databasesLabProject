@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `Customer Card` (
 
 CREATE TABLE IF NOT EXISTS `Order` (
   `Customer` INT NOT NULL,
-  `ID` INT NOT NULL,
+  `ID` INT NOT NULL AUTO_INCREMENT,
   `Products Use Together` TINYINT NOT NULL ,
   `Sum Cost` DECIMAL NOT NULL,
   UNIQUE(`Customer`),
@@ -176,30 +176,44 @@ CREATE TABLE IF NOT EXISTS `Administrator` (
 
 
 CREATE TABLE IF NOT EXISTS `Salary` (
-  `ID` INT NOT NULL,
+  `ID` INT NOT NULL AUTO_INCREMENT,
   `Month and Year` DATE NOT NULL,
-  `Amount` DECIMAL(2) NOT NULL,
+  `Amount` DECIMAL(6,2) NOT NULL,
   `Administrator` INT NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE(`ID`),
-  UNIQUE(`Administrator`),
   CONSTRAINT `Salary_Administrator` 
   FOREIGN KEY (`Administrator`) REFERENCES `Administrator`(`ID`)
   ON DELETE CASCADE ON UPDATE CASCADE 
 )ENGINE = InnoDB;
 
+SET SQL_MODE='ALLOW_INVALID_DATES';
 
-INSERT INTO Administrator VALUES(NULL, "Giorgos", "Tsoulos", "giorgos@eshop.gr", "Test CV 0", "Senior", NULL);
+INSERT INTO Administrator VALUES(NULL, "Giorgos", "Tsoulos", "giorgos@eshop.gr", "Test CV 0", "Senior", NULL);  
 INSERT INTO Administrator VALUES(NULL, "Dimitris", "Papandreou", "dimitris@eshop.gr", "Test CV 1", "Junior", 1);
-INSERT INTO Administrator VALUES(NULL, "Kwstas", "Kwstopoulos", "kwstas@eshop.gr", "Test CV 2", "Junior", 1);
-INSERT INTO Administrator VALUES(NULL, "Marios", "Mariou", "marios@eshop.gr", "Test CV 3", "Senior", NULL);
+INSERT INTO Administrator VALUES(NULL, "Kwstas", "Kwstopoulos", "kwstas@eshop.gr", "Test CV 2", "Junior", 1); 
+INSERT INTO Administrator VALUES(NULL, "Marios", "Mariou", "marios@eshop.gr", "Test CV 3", "Senior", NULL); 
 INSERT INTO Administrator VALUES(NULL, "Andreas", "Andreou", "andreas@eshop.gr", "Test CV 4", "Junior", 4);
 INSERT INTO Administrator VALUES(NULL, "Mpampis", "Mpampou", "mpampis@eshop.gr", "Test CV 5", "Junior", 4);
 INSERT INTO Administrator VALUES(NULL, "Tasos", "Tasou", "tasos@eshop.gr", "Test CV 6", "Senior", NULL);
 INSERT INTO Administrator VALUES(NULL, "Alekos", "Alekou", "alekos@eshop.gr", "Test CV 7", "Senior", NULL);
 INSERT INTO Administrator VALUES(NULL, "Giorgos", "Giorgou", "ggiorgos@eshop.gr", "Test CV 8", "Junior", 8);
-INSERT INTO Administrator VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.gr", "Test CV 9", "Junior", 8);
+INSERT INTO Administrator VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.gr", "Test CV 9", "Junior", 8); 
 
+INSERT INTO Salary VALUES(NULL, '1997-06-00', 1670.28, 1);
+INSERT INTO Salary VALUES(NULL, '1997-09-00', 1470.48, 1);
+INSERT INTO Salary VALUES(NULL, '1997-05-00', 660.35, 2);
+INSERT INTO Salary VALUES(NULL, '1997-09-00', 670.28, 3);
+INSERT INTO Salary VALUES(NULL, '1998-10-00', 1370.28, 4);
+INSERT INTO Salary VALUES(NULL, '1998-03-00', 1470.28, 7);
+INSERT INTO Salary VALUES(NULL, '1998-12-00', 670.28, 10);
+INSERT INTO Salary VALUES(NULL, '1998-05-00', 690.28, 9);
+INSERT INTO Salary VALUES(NULL, '1998-06-00', 590.28, 5);
+INSERT INTO Salary VALUES(NULL, '1998-11-00', 710.28, 6);
+INSERT INTO Salary VALUES(NULL, '1998-10-00', 1900.28, 4);
+INSERT INTO Salary VALUES(NULL, '1998-09-00', 2010.28, 1);
+INSERT INTO Salary VALUES(NULL, '1999-08-00', 700.28, 2);
+INSERT INTO Salary VALUES(NULL, '1999-04-00', 670.28, 3);
 
 
 

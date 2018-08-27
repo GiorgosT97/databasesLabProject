@@ -14,7 +14,7 @@
   * Other
 ---
 ### <div style="background-color: Cyan;color:black;"> External HD Table </div>
-* Whether the disk need external supply is represented by an enum, containg values:
+* Whether the disk needs external supply is represented by an enum, containg values:
   * Yes
   * No
   * N/S
