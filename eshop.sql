@@ -6,7 +6,7 @@ USE `ESHOP` ;
 CREATE TABLE IF NOT EXISTS `CPU` (
   `Model` VARCHAR(30)  NOT NULL,
   `Supplier` ENUM('AMD', 'Intel') NOT NULL,
-  `Frequency` DECIMAL NOT NULL,
+  `Frequency` DECIMAL(2,2) NOT NULL,
   `Cores` INT(2) NOT NULL,
   `Threads` INT(2) NOT NULL,
   `Socket` VARCHAR(10) NOT NULL,
@@ -239,6 +239,6 @@ INSERT INTO Customer VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.
 
 
 
-
+INSERT INTO CPU VALUES("i7-8700K", "Intel", 3.7, 6, 12, "1151", "512", 95, 359.99);
 
 
