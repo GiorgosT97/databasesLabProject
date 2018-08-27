@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `Order` (
 
 
 CREATE TABLE IF NOT EXISTS `Administrator` (
-  `ID` INT(9) NOT NULL,
+  `ID` INT(9) NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45),
   `Surname` VARCHAR(45),
   `E-mail` VARCHAR(45),
@@ -168,6 +168,7 @@ CREATE TABLE IF NOT EXISTS `Administrator` (
   `Supervisor` INT(9) NULL,
   PRIMARY KEY (`ID`),
   UNIQUE(`ID`),
+  UNIQUE(`E-mail`),
   CONSTRAINT `Administrator_Supervisor`
   FOREIGN KEY (`Supervisor`) REFERENCES `Administrator`(`ID`)
   ON DELETE SET NULL ON UPDATE CASCADE
@@ -186,6 +187,22 @@ CREATE TABLE IF NOT EXISTS `Salary` (
   FOREIGN KEY (`Administrator`) REFERENCES `Administrator`(`ID`)
   ON DELETE CASCADE ON UPDATE CASCADE 
 )ENGINE = InnoDB;
+
+
+INSERT INTO Administrator VALUES(NULL, "Giorgos", "Tsoulos", "giorgos@eshop.gr", "Test CV 0", "Senior", NULL);
+INSERT INTO Administrator VALUES(NULL, "Dimitris", "Papandreou", "dimitris@eshop.gr", "Test CV 1", "Junior", 1);
+INSERT INTO Administrator VALUES(NULL, "Kwstas", "Kwstopoulos", "kwstas@eshop.gr", "Test CV 2", "Junior", 1);
+INSERT INTO Administrator VALUES(NULL, "Marios", "Mariou", "marios@eshop.gr", "Test CV 3", "Senior", NULL);
+INSERT INTO Administrator VALUES(NULL, "Andreas", "Andreou", "andreas@eshop.gr", "Test CV 4", "Junior", 4);
+INSERT INTO Administrator VALUES(NULL, "Mpampis", "Mpampou", "mpampis@eshop.gr", "Test CV 5", "Junior", 4);
+INSERT INTO Administrator VALUES(NULL, "Tasos", "Tasou", "tasos@eshop.gr", "Test CV 6", "Senior", NULL);
+INSERT INTO Administrator VALUES(NULL, "Alekos", "Alekou", "alekos@eshop.gr", "Test CV 7", "Senior", NULL);
+INSERT INTO Administrator VALUES(NULL, "Giorgos", "Giorgou", "ggiorgos@eshop.gr", "Test CV 8", "Junior", 8);
+INSERT INTO Administrator VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.gr", "Test CV 9", "Junior", 8);
+
+
+
+
 
 
 

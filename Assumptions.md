@@ -22,6 +22,7 @@
 ### <div style="background-color: Cyan;color:black;"> Salary Table </div>
 * Year and month of the salary are stored in a date type column. Days are set to 00 as MySQL manual suggests:
   * >[Ranges for the month and day specifiers begin with zero due to the fact that MySQL permits the storing of incomplete dates such as '2014-00-00'.](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format).
-
-
+---
+### <div style="background-color: Cyan;color:black;"> Administrator Table </div>
+* E-mail field must be unique. 
 
