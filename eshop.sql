@@ -3,15 +3,18 @@ DROP DATABASE IF EXISTS `ESHOP` ;
 CREATE DATABASE `ESHOP` DEFAULT CHARACTER SET utf8 ;
 USE `ESHOP` ;
 
-
-CREATE TABLE IF NOT EXISTS `RAM` (
-  `Model` VARCHAR(30) UNIQUE NOT NULL,
-  `Supplier` VARCHAR(45) NOT NULL,
-  `Type` ENUM('DDR3', 'DDR4', 'DDR3 SO-DIMM', 'DDR4 SO-DIMM') NOT NULL,
-  `Frequency` DECIMAL NOT NULL DEFAULT 1.5,
-  `Storage` DECIMAL NOT NULL DEFAULT 1.5,
+CREATE TABLE IF NOT EXISTS `CPU` (
+  `Model` VARCHAR(30)  NOT NULL,
+  `Supplier` ENUM('AMD', 'Intel') NOT NULL,
+  `Frequency` DECIMAL NOT NULL,
+  `Cores` INT(2) NOT NULL,
+  `Threads` INT(2) NOT NULL,
+  `Socket` VARCHAR(10) NOT NULL,
+  `Level1 Cache` ENUM('32', '64', '72', '80', '96', '128', '256', '512') NOT NULL,
+  `Supply Power` INT NOT NULL,
   `Price` DECIMAL(2) NOT NULL,
-  PRIMARY KEY (`Model`)  
+  UNIQUE(`Model`),
+  PRIMARY KEY (`Model`)
 )ENGINE = InnoDB;
 
 
@@ -29,29 +32,14 @@ CREATE TABLE IF NOT EXISTS `Motherboard` (
 )ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `CPU` (
-  `Model` VARCHAR(30)  NOT NULL,
-  `Supplier` ENUM('AMD', 'Intel') NOT NULL,
-  `Frequency` DECIMAL NOT NULL DEFAULT 1.5 ,
-  `Cores` INT(2) NOT NULL,
-  `Threads` INT(2) NOT NULL,
-  `Socket` VARCHAR(10) NOT NULL,
-  `Level1 Cache` ENUM('32', '64', '72', '80', '96', '128', '256', '512') NOT NULL,
-  `Supply Power` INT NOT NULL,
-  `Price` DECIMAL(2) NOT NULL,
-  UNIQUE(`Model`),
-  PRIMARY KEY (`Model`)
-)ENGINE = InnoDB;
-
-
-CREATE TABLE IF NOT EXISTS `Case` (
-  `Model` VARCHAR(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `RAM` (
+  `Model` VARCHAR(30) UNIQUE NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
-  `Size` ENUM('Midi', 'Mini', 'Full Tower', 'Ultra Tower', 'Micro') NOT NULL,
-  `Motherboard Types` SET('uATX/MicroATX', 'ATX', 'ExtendedATX', 'MiniITX', 'SSI', 'Other') NOT NULL,
+  `Type` ENUM('DDR3', 'DDR4', 'DDR3 SO-DIMM', 'DDR4 SO-DIMM') NOT NULL,
+  `Frequency` DECIMAL NOT NULL,
+  `Storage` DECIMAL NOT NULL,
   `Price` DECIMAL(2) NOT NULL,
-  PRIMARY KEY (`Model`),
-  UNIQUE(`Model`)
+  PRIMARY KEY (`Model`)  
 )ENGINE = InnoDB;
 
 
@@ -59,13 +47,13 @@ CREATE TABLE IF NOT EXISTS `GPU` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
   `Cpu Type` ENUM('AMD', 'Nvidia') NOT NULL,
-  `Physical Connections` INT(5) NOT NULL,
-  `Type` ENUM('DVI-D', 'DVI-I', 'VGA', 'Mini HDMI', 'HDMI', 'DisplayPort', 'Mini DisplayPort') NOT NULL,
-  `Memory` DECIMAL NOT NULL DEFAULT 1.5 ,
-  `Memory Type` ENUM('GDDR3', 'GDDR4') NOT NULL,
-  `Base Clock` DECIMAL NOT NULL DEFAULT 1.5 ,
-  `Memory Clock` DECIMAL NOT NULL DEFAULT 1.5 ,
-  `Power` MEDIUMINT NOT NULL DEFAULT 125 ,
+  `Physical Connections` INT(2) NOT NULL,
+  `Type` SET('DVI-D', 'DVI-I', 'VGA', 'Mini HDMI', 'HDMI', 'DisplayPort', 'Mini DisplayPort') NOT NULL,
+  `Memory` DECIMAL NOT NULL,
+  `Memory Type` ENUM('GDDR SDRAM', 'GDDR2', 'GDDR3', 'GDDR4', 'GDDR5', 'Other') NOT NULL,
+  `Base Clock` DECIMAL NOT NULL,
+  `Memory Clock` DECIMAL NOT NULL ,
+  `Power` MEDIUMINT NOT NULL,
   `Price` DECIMAL(2) NOT NULL,
   PRIMARY KEY (`Model`),
   UNIQUE(`Model`)
@@ -82,15 +70,26 @@ CREATE TABLE IF NOT EXISTS `PSU` (
 )ENGINE = InnoDB;
 
 
+CREATE TABLE IF NOT EXISTS `Case` (
+  `Model` VARCHAR(30) NOT NULL,
+  `Supplier` VARCHAR(45) NOT NULL,
+  `Size` ENUM('Midi', 'Mini', 'Full Tower', 'Ultra Tower', 'Micro') NOT NULL,
+  `Motherboard Types` SET('uATX/MicroATX', 'ATX', 'ExtendedATX', 'MiniITX', 'SSI', 'Other') NOT NULL,
+  `Price` DECIMAL(2) NOT NULL,
+  PRIMARY KEY (`Model`),
+  UNIQUE(`Model`)
+)ENGINE = InnoDB;
+
+
 CREATE TABLE IF NOT EXISTS `SSD` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
-  `Storage` DECIMAL NOT NULL DEFAULT 1.5 ,
+  `Storage` DECIMAL NOT NULL,
   `Size` ENUM('2.5', '3.5', 'mSata', 'other') NOT NULL,
   `Price` DECIMAL(2) NOT NULL,
   `Connection Type` VARCHAR(45) NOT NULL,
-  `Write Speed` DECIMAL NOT NULL ,
-  `Read Speed` DECIMAL NOT NULL ,
+  `Write Speed` DECIMAL NOT NULL,
+  `Read Speed` DECIMAL NOT NULL,
   PRIMARY KEY (`Model`),
   UNIQUE(`Model`)
 )ENGINE = InnoDB;
@@ -99,11 +98,11 @@ CREATE TABLE IF NOT EXISTS `SSD` (
 CREATE TABLE IF NOT EXISTS `HDD` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
-  `Storage` DECIMAL NOT NULL DEFAULT 1.5 ,
+  `Storage` DECIMAL NOT NULL,
   `Size` ENUM('2.5', '3.5', 'mSata', 'other') NOT NULL,
   `Price` DECIMAL(2) NOT NULL,
-  `Cache` DECIMAL NULL ,
-  `Rpm` DECIMAL NULL ,
+  `Cache` DECIMAL NOT NULL,
+  `Rpm` DECIMAL NOT NULL,
   PRIMARY KEY (`Model`),
   UNIQUE(`Model`)
 )ENGINE = InnoDB;
@@ -112,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `HDD` (
 CREATE TABLE IF NOT EXISTS `External HD` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
-  `Storage` DECIMAL NOT NULL DEFAULT 1.5 ,
+  `Storage` DECIMAL NOT NULL,
   `Size` ENUM('2.5', '3.5', 'mSata', 'other') NOT NULL,
   `Price` DECIMAL(2) NOT NULL,
   `Connection Type` VARCHAR(45) NOT NULL,
@@ -129,7 +128,6 @@ CREATE TABLE IF NOT EXISTS `Customer` (
   `E-mail` VARCHAR(45) NOT NULL,
   `Phone Number` MEDIUMINT NOT NULL,
   `Registration Date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Customer Cards` SMALLINT NOT NULL,
   PRIMARY KEY(`ID`)
 )ENGINE = InnoDB;
 
@@ -165,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `Administrator` (
   `Name` VARCHAR(45),
   `Surname` VARCHAR(45),
   `E-mail` VARCHAR(45),
-  `CV` VARCHAR(60),
+  `CV` VARCHAR(100),
   `Grade` ENUM('Senior', 'Junior') NOT NULL,
   `Supervisor` INT(9) NULL,
   PRIMARY KEY (`ID`),
@@ -178,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `Administrator` (
 
 CREATE TABLE IF NOT EXISTS `Salary` (
   `ID` INT NOT NULL,
-  `Month` VARCHAR(45) NOT NULL,
+  `Month and Year` DATE NOT NULL,
   `Amount` DECIMAL(2) NOT NULL,
   `Administrator` INT NOT NULL,
   PRIMARY KEY (`ID`),
