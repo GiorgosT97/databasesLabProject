@@ -2,7 +2,8 @@
 
 ### <div style="background-color: Cyan;color:black;"> General for all tables </div>
 * Every attribute has to be specified for all tables. Exceptions are:
-  * Supervisor for admin
+  * Supervisor for Administrator Tabke
+  * All products in Order Table
 ---
 ### <div style="background-color: Cyan;color:black;"> Graphics Card Table </div>
 * The types of GPU memories are only the following: 

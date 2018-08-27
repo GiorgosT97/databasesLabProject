@@ -145,16 +145,24 @@ CREATE TABLE IF NOT EXISTS `Customer Card` (
 
 
 CREATE TABLE IF NOT EXISTS `Order` (
-  `Customer` INT NOT NULL,
   `ID` INT NOT NULL AUTO_INCREMENT,
-  `Products Use Together` TINYINT NOT NULL ,
-  `Sum Cost` DECIMAL NOT NULL,
-  UNIQUE(`Customer`),
+  `Customer` INT NOT NULL,
+  `CPU` VARCHAR(30) NULL,
+  `Motherboard` VARCHAR(30) NULL,
+  `RAM` VARCHAR(30) NULL,
+  `GPU` VARCHAR(30) NULL,
+  `PSU` VARCHAR(30) NULL,
+  `Case` VARCHAR(30) NULL,
+  `SSD` VARCHAR(30) NULL,
+  `HDD` VARCHAR(30) NULL,
+  `External HD` VARCHAR(30) NULL,
+  `Products Use Together` TINYINT(1) NOT NULL,
+  `Sum Cost` DECIMAL(6,3) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE(`ID`),
   CONSTRAINT `Order_to_Customer`
   FOREIGN KEY (`Customer`)  REFERENCES `Customer`(`ID`)
-  ON DELETE CASCADE ON UPDATE CASCADE
+  ON DELETE CASCADE ON UPDATE CASCADE,
 )ENGINE = InnoDB;
 
 
@@ -189,6 +197,7 @@ CREATE TABLE IF NOT EXISTS `Salary` (
 
 SET SQL_MODE='ALLOW_INVALID_DATES';
 
+
 INSERT INTO Administrator VALUES(NULL, "Giorgos", "Tsoulos", "giorgos@eshop.gr", "Test CV 0", "Senior", NULL);  
 INSERT INTO Administrator VALUES(NULL, "Dimitris", "Papandreou", "dimitris@eshop.gr", "Test CV 1", "Junior", 1);
 INSERT INTO Administrator VALUES(NULL, "Kwstas", "Kwstopoulos", "kwstas@eshop.gr", "Test CV 2", "Junior", 1); 
@@ -199,6 +208,7 @@ INSERT INTO Administrator VALUES(NULL, "Tasos", "Tasou", "tasos@eshop.gr", "Test
 INSERT INTO Administrator VALUES(NULL, "Alekos", "Alekou", "alekos@eshop.gr", "Test CV 7", "Senior", NULL);
 INSERT INTO Administrator VALUES(NULL, "Giorgos", "Giorgou", "ggiorgos@eshop.gr", "Test CV 8", "Junior", 8);
 INSERT INTO Administrator VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.gr", "Test CV 9", "Junior", 8); 
+
 
 INSERT INTO Salary VALUES(NULL, '1997-06-00', 1670.28, 1);
 INSERT INTO Salary VALUES(NULL, '1997-09-00', 1470.48, 1);
@@ -214,6 +224,7 @@ INSERT INTO Salary VALUES(NULL, '1998-10-00', 1900.28, 4);
 INSERT INTO Salary VALUES(NULL, '1998-09-00', 2010.28, 1);
 INSERT INTO Salary VALUES(NULL, '1999-08-00', 700.28, 2);
 INSERT INTO Salary VALUES(NULL, '1999-04-00', 670.28, 3);
+
 
 INSERT INTO Customer VALUES(NULL, "Giorgos", "Tsoulos", "giorgos@eshop.gr", 694219546 , DEFAULT);  
 INSERT INTO Customer VALUES(NULL, "Dimitris", "Papandreou", "dimitris@eshop.gr", 69545611, '2001-05-20 12:15:10');
