@@ -1,5 +1,5 @@
 
-DROP DATABASE IF EXISTS `ESHOP`
+DROP DATABASE IF EXISTS `ESHOP` ;
 CREATE DATABASE `ESHOP` DEFAULT CHARACTER SET utf8 ;
 USE `ESHOP` ;
 
@@ -29,7 +29,6 @@ CREATE TABLE IF NOT EXISTS `Motherboard` (
 )ENGINE = InnoDB;
 
 
-
 CREATE TABLE IF NOT EXISTS `CPU` (
   `Model` VARCHAR(30)  NOT NULL,
   `Supplier` ENUM('AMD', 'Intel') NOT NULL,
@@ -55,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `Case` (
   UNIQUE(`Model`)
 )ENGINE = InnoDB;
 
+
 CREATE TABLE IF NOT EXISTS `GPU` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `GPU` (
   UNIQUE(`Model`)
 )ENGINE = InnoDB;
 
+
 CREATE TABLE IF NOT EXISTS `PSU` (
   `Model` VARCHAR(30) NOT NULL,
   `Suppliier` VARCHAR(45) NOT NULL,
@@ -81,57 +82,44 @@ CREATE TABLE IF NOT EXISTS `PSU` (
 )ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `Hard Drive` (
+CREATE TABLE IF NOT EXISTS `SSD` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
   `Storage` DECIMAL NOT NULL DEFAULT 1.5 ,
   `Size` ENUM('2.5', '3.5', 'mSata', 'other') NOT NULL,
   `Price` DECIMAL(2) NOT NULL,
-  `TYPE` ENUM('SSD', 'HDD', 'EXTERNAL') NOT NULL,
+  `Connection Type` VARCHAR(45) NOT NULL,
+  `Write Speed` DECIMAL NOT NULL ,
+  `Read Speed` DECIMAL NOT NULL ,
   PRIMARY KEY (`Model`),
   UNIQUE(`Model`)
 )ENGINE = InnoDB;
 
 
-
-CREATE TABLE IF NOT EXISTS `SSD` (
-  `Model` VARCHAR(30) NOT NULL,
-  `Connection Type` VARCHAR(45) NOT NULL,
-  `Write Speed` DECIMAL NOT NULL ,
-  `Read Speed` DECIMAL NOT NULL ,
-  PRIMARY KEY (`Model`),
-  UNIQUE(`Model`),
-  CONSTRAINT `SSD_HArd_Drive`
-  FOREIGN KEY (`Model`) REFERENCES `Hard Drive`(`Model`)
-  ON DELETE CASCADE ON UPDATE CASCADE
-)ENGINE = InnoDB;
-
-
-
 CREATE TABLE IF NOT EXISTS `HDD` (
   `Model` VARCHAR(30) NOT NULL,
+  `Supplier` VARCHAR(45) NOT NULL,
+  `Storage` DECIMAL NOT NULL DEFAULT 1.5 ,
+  `Size` ENUM('2.5', '3.5', 'mSata', 'other') NOT NULL,
+  `Price` DECIMAL(2) NOT NULL,
   `Cache` DECIMAL NULL ,
   `Rpm` DECIMAL NULL ,
   PRIMARY KEY (`Model`),
-  UNIQUE(`Model`),
-  CONSTRAINT `HDD_Hard_Drive`
-  FOREIGN KEY (`Model`) REFERENCES `Hard Drive`(`Model`)
-  ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE(`Model`)
 )ENGINE = InnoDB;
-
 
 
 CREATE TABLE IF NOT EXISTS `External HD` (
   `Model` VARCHAR(30) NOT NULL,
+  `Supplier` VARCHAR(45) NOT NULL,
+  `Storage` DECIMAL NOT NULL DEFAULT 1.5 ,
+  `Size` ENUM('2.5', '3.5', 'mSata', 'other') NOT NULL,
+  `Price` DECIMAL(2) NOT NULL,
   `Connection Type` VARCHAR(45) NOT NULL,
   `External Power Supply` ENUM('Yes', 'No', 'N/S') NOT NULL,
   PRIMARY KEY (`Model`),
-  UNIQUE (`Model`),
-  CONSTRAINT `External_Hard_Drive`
-  FOREIGN KEY (`Model`) REFERENCES `Hard Drive`(`Model`)
-  ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE (`Model`)
 )ENGINE = InnoDB;
-
 
 
 CREATE TABLE IF NOT EXISTS `Customer` (
@@ -146,12 +134,15 @@ CREATE TABLE IF NOT EXISTS `Customer` (
 )ENGINE = InnoDB;
 
 
-
 CREATE TABLE IF NOT EXISTS `Customer Card` (
-  `ID` INT NOT NULL,
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `Customer_id` INT NOT NULL,
   `Points Available` MEDIUMINT NOT NULL DEFAULT 0,
   `Points Used` MEDIUMINT NOT NULL DEFAULT 0,
-  UNIQUE(`ID`)
+  UNIQUE(`ID`),
+  CONSTRAINT `Card_to_Customer`
+  FOREIGN KEY (ID) REFERENCES `Customer`(ID)
+  ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
 
@@ -163,26 +154,27 @@ CREATE TABLE IF NOT EXISTS `Order` (
   UNIQUE(`Customer`),
   PRIMARY KEY (`ID`),
   UNIQUE(`ID`),
-  CONSTRAINT `Order_Customer`
+  CONSTRAINT `Order_to_Customer`
   FOREIGN KEY (`Customer`)  REFERENCES `Customer`(`ID`)
   ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS `Administrator` (
-  `ID` INT NOT NULL,
+  `ID` INT(9) NOT NULL,
   `Name` VARCHAR(45),
   `Surname` VARCHAR(45),
   `E-mail` VARCHAR(45),
   `CV` VARCHAR(60),
   `Grade` ENUM('Senior', 'Junior') NOT NULL,
-  `Supervisor` INT NULL,
+  `Supervisor` INT(9) NULL,
   PRIMARY KEY (`ID`),
   UNIQUE(`ID`),
   CONSTRAINT `Administrator_Supervisor`
   FOREIGN KEY (`Supervisor`) REFERENCES `Administrator`(`ID`)
   ON DELETE SET NULL ON UPDATE CASCADE
 )ENGINE = InnoDB;
+
 
 CREATE TABLE IF NOT EXISTS `Salary` (
   `ID` INT NOT NULL,
@@ -192,11 +184,11 @@ CREATE TABLE IF NOT EXISTS `Salary` (
   PRIMARY KEY (`ID`),
   UNIQUE(`ID`),
   UNIQUE(`Administrator`),
-  CONSTRAINT `Salary_Administrator`
+  CONSTRAINT `Salary_Administrator` 
   FOREIGN KEY (`Administrator`) REFERENCES `Administrator`(`ID`)
-  ON DELETE CASCADE ON UPDATE CASCADE
+  ON DELETE CASCADE ON UPDATE CASCADE 
 )ENGINE = InnoDB;
 
 
-INSERT INTO `Administrator` VALUES(3211, 'hre', 'hwe','hwehweh', 'hwehwe', 'Senior', NULL);
+
 
