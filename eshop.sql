@@ -21,12 +21,12 @@ CREATE TABLE IF NOT EXISTS `CPU` (
 CREATE TABLE IF NOT EXISTS `Motherboard` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
-  `Socket` VARCHAR(10) NOT NULL,
-  `Max Ram Frequency` DECIMAL NOT NULL DEFAULT 1.5,
+  `Socket` VARCHAR(20) NOT NULL,
+  `Max Ram Frequency` MEDIUMINT NOT NULL,
   `Ram Slots` TINYINT(1) NOT NULL,
   `Ram Type` ENUM('DDR3', 'DDR4', 'DDR3 SO-DIMM', 'DDR4 SO-DIMM') NOT NULL,
   `Size` ENUM('uATX/MicroATX', 'ATX', 'ExtendedATX', 'MiniITX', 'SSI', 'Other') NOT NULL,
-  `Price` DECIMAL(2) NOT NULL,
+  `Price` DECIMAL(6,2) NOT NULL,
   UNIQUE(`Model`),
   PRIMARY KEY (`Model`)
 )ENGINE = InnoDB;
@@ -238,7 +238,6 @@ INSERT INTO Customer VALUES(NULL, "Giorgos", "Giorgou", "ggiorgos@eshop.gr", 696
 INSERT INTO Customer VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.gr", 69465319, '2003-05-08 19:45:02'); 
 
 
-
 INSERT INTO CPU VALUES("i7-8700K", "Intel", 3.7, 6, 12, "1151", "512", 95, 359.99);
 INSERT INTO CPU VALUES("i5-8400", "Intel", 2.8, 6, 6, "1151", "512", 87, 180.00);
 INSERT INTO CPU VALUES("Ryzen 5 2400G", "AMD", 3.2, 4, 8, "AM4", "256", 85, 145.00);
@@ -249,6 +248,20 @@ INSERT INTO CPU VALUES("i7-7700K", "Intel", 4.2, 4, 8, "1151", "512", 91, 325.00
 INSERT INTO CPU VALUES("Ryzen 7 1700X", "AMD", 3.4, 8, 16, "AM4", "96", 84, 217.95);
 INSERT INTO CPU VALUES("Ryzen 7 1800X", "AMD", 3.6, 8, 16, "AM4", "80", 81, 243.85);
 INSERT INTO CPU VALUES("i5-7600K", "Intel", 3.8, 4, 4, "1151", "128", 87, 230.99);
+
+
+INSERT INTO Motherboard VALUES("Rog Strix B350-F", "AASUS", "AMD B350", 3200, 4, "DDR4", "ATX", 118.19);
+INSERT INTO Motherboard VALUES("B250M-DS3H", "GIGABYTE", "INTEL B250", 2400, 4, "DDR4", "uATX/MicroATX", 65.52);
+INSERT INTO Motherboard VALUES("PRIME Z370-A", "ASUS", "INTEL Z370", 4000, 4, "DDR4", "ATX", 170.24);
+INSERT INTO Motherboard VALUES("Z370P D3", "GIGABYTE", "INTEL B250", 4000, 4, "DDR4", "ATX", 96.37);
+INSERT INTO Motherboard VALUES("X370 Gaming Pro Carbon", "MSI", "AMD X370", 3200, 4, "DDR4", "ATX", 113.94);
+INSERT INTO Motherboard VALUES("Z370-A Pro", "MSI", "INTEL Z370", 4000, 4, "DDR4", "ATX", 98.84);
+INSERT INTO Motherboard VALUES("Z370 Sli Plus", "MSI", "INTEL Z370", 4000, 4, "DDR4", "ATX", 143.96);
+INSERT INTO Motherboard VALUES("PRIME B350 Plus", "ASUS", "AMD B350", 3200, 4, "DDR4", "ATX", 95.74);
+INSERT INTO Motherboard VALUES("B250-HD3P", "GIGABYTE", "INTEL B250", 2400, 4, "DDR4", "ATX", 73.22);
+INSERT INTO Motherboard VALUES("B250M Pro-VD", "MSI", "INTEL B250", 2400, 2, "DDR4", "uATX/MicroATX", 48.50);
+
+
 
 
 
