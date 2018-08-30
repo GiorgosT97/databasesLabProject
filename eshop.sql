@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `Case` (
   `Supplier` VARCHAR(45) NOT NULL,
   `Size` ENUM('Midi', 'Mini', 'Full Tower', 'Ultra Tower', 'Micro') NOT NULL,
   `Motherboard Types` SET('uATX/MicroATX', 'ATX', 'ExtendedATX', 'MiniITX', 'SSI', 'Other') NOT NULL,
-  `Price` DECIMAL(2) NOT NULL,
+  `Price` DECIMAL(6,2) NOT NULL,
   PRIMARY KEY (`Model`),
   UNIQUE(`Model`)
 )ENGINE = InnoDB;
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `Order` (
   UNIQUE(`ID`),
   CONSTRAINT `Order_to_Customer`
   FOREIGN KEY (`Customer`)  REFERENCES `Customer`(`ID`)
-  ON DELETE CASCADE ON UPDATE CASCADE,
+  ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
 
@@ -273,6 +273,17 @@ INSERT INTO PSU VALUES("TX-M Series TX650M", "CORSAIR", 650, 89.98);
 INSERT INTO PSU VALUES("Smart RGB 600", "THERMALTAKE", 600, 47.38);
 INSERT INTO PSU VALUES("FOCUS PLUS 750", "SEASONIC", 750, 123.69);
 
+
+INSERT INTO `Case` VALUES("Source S340", "NZXT", "Midi", "ATX,MiniITX,uATX/MicroATX", 70.93);
+INSERT INTO `Case` VALUES("MX330-X", "COUGAR", "Midi", "ATX,MiniITX,uATX/MicroATX", 28.03);
+INSERT INTO `Case` VALUES("Masterbox Lite 3.1", "COOLERMASTER", "Midi", "MiniITX,uATX/MicroATX", 39.00);
+INSERT INTO `Case` VALUES("Source S340", "NZXT", "Midi", "ATX,MiniITX,uATX/MicroATX", 70.93);
+INSERT INTO `Case` VALUES("Cosmos C700P", "COOLERMASTER", "Full Tower", "MiniITX,uATX/MicroATX,ATX,ExtendedATX", 309.48);
+INSERT INTO `Case` VALUES("Panzer Max", "COUGAR", "Full Tower", "MiniITX,uATX/MicroATX,ATX,ExtendedATX,Other", 200.52);
+INSERT INTO `Case` VALUES("Core V21", "Thermaltake", "Micro", "MiniITX,uATX/MicroATX", 57.15);
+INSERT INTO `Case` VALUES("Enthoo Evolv", "Phanteks", "Micro", "MiniITX,uATX/MicroATX", 128.64);
+INSERT INTO `Case` VALUES("Manta Matte", "NZXT", "Mini", "MiniITX", 87.75);
+INSERT INTO `Case` VALUES("Cosmos II", "COOLERMASTER", "Ultra Tower", "uATX/MicroATX,ATX,Other", 338.97);
 
 
 
