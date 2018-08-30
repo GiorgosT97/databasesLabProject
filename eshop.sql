@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `CPU` (
   `Socket` VARCHAR(10) NOT NULL,
   `Level1 Cache` ENUM('32', '64', '72', '80', '96', '128', '256', '512') NOT NULL,
   `Supply Power` INT NOT NULL,
-  `Price` DECIMAL(2) NOT NULL,
+  `Price` DECIMAL(6,2) NOT NULL,
   UNIQUE(`Model`),
   PRIMARY KEY (`Model`)
 )ENGINE = InnoDB;
@@ -240,5 +240,16 @@ INSERT INTO Customer VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.
 
 
 INSERT INTO CPU VALUES("i7-8700K", "Intel", 3.7, 6, 12, "1151", "512", 95, 359.99);
+INSERT INTO CPU VALUES("i5-8400", "Intel", 2.8, 6, 6, "1151", "512", 87, 180.00);
+INSERT INTO CPU VALUES("Ryzen 5 2400G", "AMD", 3.2, 4, 8, "AM4", "256", 85, 145.00);
+INSERT INTO CPU VALUES("Ryzen 7 2700X", "AMD", 3.7, 8, 16, "AM4", "512", 91, 314.00);
+INSERT INTO CPU VALUES("i3-7100", "Intel", 3.9, 2, 4, "1151", "72", 72, 109.99);
+INSERT INTO CPU VALUES("i3-8350K", "Intel", 4.0, 4, 4, "1151", "128", 75, 168.80);
+INSERT INTO CPU VALUES("i7-7700K", "Intel", 4.2, 4, 8, "1151", "512", 91, 325.00);
+INSERT INTO CPU VALUES("Ryzen 7 1700X", "AMD", 3.4, 8, 16, "AM4", "96", 84, 217.95);
+INSERT INTO CPU VALUES("Ryzen 7 1800X", "AMD", 3.6, 8, 16, "AM4", "80", 81, 243.85);
+INSERT INTO CPU VALUES("i5-7600K", "Intel", 3.8, 4, 4, "1151", "128", 87, 230.99);
+
+
 
 
