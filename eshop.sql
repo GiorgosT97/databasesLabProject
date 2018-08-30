@@ -112,9 +112,9 @@ CREATE TABLE IF NOT EXISTS `HDD` (
 CREATE TABLE IF NOT EXISTS `External HD` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
-  `Storage` DECIMAL NOT NULL,
+  `Storage` SMALLINT NOT NULL,
   `Size` ENUM('2.5', '3.5', 'mSata', 'other') NOT NULL,
-  `Price` DECIMAL(2) NOT NULL,
+  `Price` DECIMAL(6,2) NOT NULL,
   `Connection Type` VARCHAR(45) NOT NULL,
   `External Power Supply` ENUM('Yes', 'No', 'N/S') NOT NULL,
   PRIMARY KEY (`Model`),
@@ -309,6 +309,20 @@ INSERT INTO HDD VALUES("Blue 3", "WESTERN DIGITAL", 3, "3.5", "SATA III", 82.70,
 INSERT INTO HDD VALUES("Blue 4", "WESTERN DIGITAL", 4, "3.5", "SATA III", 96.21, 64, 5400);
 INSERT INTO HDD VALUES("Black 1", "WESTERN DIGITAL", 1, "3.5", "SATA III", 71.69, 64, 7200);
 INSERT INTO HDD VALUES("Red NAS 3", "WESTERN DIGITAL", 3, "3.5", "SATA III", 113.43, 64, 5400);
+
+
+INSERT INTO `External HD` VALUES("My Passport 4", "WESTERN DIGITAL", 4, "2.5", 119.60, "USB 3.0", "No");
+INSERT INTO `External HD` VALUES("M3 Portable 2", "Maxtor", 2, "2.5", 62.99, "USB 3.0", "No");
+INSERT INTO `External HD` VALUES("M3 Portable 1", "Maxtor", 1, "2.5", 44.26, "USB 3.0", "No");
+INSERT INTO `External HD` VALUES("My Passport 1", "WESTERN DIGITAL", 1, "2.5", 52.90, "USB 3.0", "No");
+INSERT INTO `External HD` VALUES("Canvio Basics 1", "TOSHIBA", 1, "2.5", 44.60, "USB 3.0", "No");
+INSERT INTO `External HD` VALUES("Expansion Portable", "SEAGATE", 1, "2.5", 46.51, "USB 3.0", "No");
+INSERT INTO `External HD` VALUES("Backup Plus Hub 6", "SEAGATE", 6, "3.5", 133.88, "USB 3.0", "No");
+INSERT INTO `External HD` VALUES("Backup Plus Hub 8", "SEAGATE", 8, "3.5", 178.10, "USB 3.0", "No");
+INSERT INTO `External HD` VALUES("Elements Portable 3", "WESTERN DIGITAL", 3, "2.5", 102.76, "USB 3.0", "No");
+INSERT INTO `External HD` VALUES("M3 Portable 4", "Maxtor", 4, "2.5", 62.99, "USB 3.0", "No");
+INSERT INTO `External HD` VALUES("Expansion Desktop 3", "SEAGATE", 3, "3.5", 81.09, "USB 3.0", "No");
+
 
 
 
