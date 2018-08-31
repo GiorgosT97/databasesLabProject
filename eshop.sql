@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `Order` (
   `HDD` VARCHAR(30) NULL,
   `External HD` VARCHAR(30) NULL,
   `Products Use Together` TINYINT(1) NOT NULL,
-  `Sum Cost` DECIMAL(6,3) NOT NULL,
+  `Sum Cost` DECIMAL(6,3) NULL,
   PRIMARY KEY (`ID`),
   UNIQUE(`ID`),
   CONSTRAINT `Order_to_Customer`
@@ -212,16 +212,16 @@ INSERT INTO CPU VALUES("Ryzen 7 1800X", "AMD", 3.6, 8, 16, "AM4", "80", 81, 243.
 INSERT INTO CPU VALUES("i5-7600K", "Intel", 3.8, 4, 4, "1151", "128", 87, 230.99);
 
 
-INSERT INTO Motherboard VALUES("Rog Strix B350-F", "AASUS", "AMD B350", 3200, 4, "DDR4", "ATX", 118.19);
-INSERT INTO Motherboard VALUES("B250M-DS3H", "GIGABYTE", "INTEL B250", 2400, 4, "DDR4", "uATX/MicroATX", 65.52);
-INSERT INTO Motherboard VALUES("PRIME Z370-A", "ASUS", "INTEL Z370", 4000, 4, "DDR4", "ATX", 170.24);
-INSERT INTO Motherboard VALUES("Z370P D3", "GIGABYTE", "INTEL B250", 4000, 4, "DDR4", "ATX", 96.37);
-INSERT INTO Motherboard VALUES("X370 Gaming Pro Carbon", "MSI", "AMD X370", 3200, 4, "DDR4", "ATX", 113.94);
-INSERT INTO Motherboard VALUES("Z370-A Pro", "MSI", "INTEL Z370", 4000, 4, "DDR4", "ATX", 98.84);
-INSERT INTO Motherboard VALUES("Z370 Sli Plus", "MSI", "INTEL Z370", 4000, 4, "DDR4", "ATX", 143.96);
-INSERT INTO Motherboard VALUES("PRIME B350 Plus", "ASUS", "AMD B350", 3200, 4, "DDR4", "ATX", 95.74);
-INSERT INTO Motherboard VALUES("B250-HD3P", "GIGABYTE", "INTEL B250", 2400, 4, "DDR4", "ATX", 73.22);
-INSERT INTO Motherboard VALUES("B250M Pro-VD", "MSI", "INTEL B250", 2400, 2, "DDR4", "uATX/MicroATX", 48.50);
+INSERT INTO Motherboard VALUES("Rog Strix B350-F", "AASUS", "AM4", 3200, 4, "DDR4", "ATX", 118.19);
+INSERT INTO Motherboard VALUES("B250M-DS3H", "GIGABYTE", "1151", 2400, 4, "DDR4", "uATX/MicroATX", 65.52);
+INSERT INTO Motherboard VALUES("PRIME Z370-A", "ASUS", "1151", 4000, 4, "DDR4", "ATX", 170.24);
+INSERT INTO Motherboard VALUES("Z370P D3", "GIGABYTE", "1151", 4000, 4, "DDR4", "ATX", 96.37);
+INSERT INTO Motherboard VALUES("X370 Gaming Pro Carbon", "MSI", "AM4", 3200, 4, "DDR4", "ATX", 113.94);
+INSERT INTO Motherboard VALUES("Z370-A Pro", "MSI", "1151", 4000, 4, "DDR4", "ATX", 98.84);
+INSERT INTO Motherboard VALUES("Z370 Sli Plus", "MSI", "1151", 4000, 4, "DDR4", "ATX", 143.96);
+INSERT INTO Motherboard VALUES("PRIME B350 Plus", "ASUS", "AM4", 3200, 4, "DDR4", "ATX", 95.74);
+INSERT INTO Motherboard VALUES("B250-HD3P", "GIGABYTE", "1151", 2400, 4, "DDR4", "ATX", 73.22);
+INSERT INTO Motherboard VALUES("B250M Pro-VD", "MSI", "1151", 2400, 2, "DDR4", "uATX/MicroATX", 48.50);
 
 
 INSERT INTO PSU VALUES("Smart RGB 700", "THERMALTAKE", 700, 52.78);
@@ -245,7 +245,7 @@ INSERT INTO `Case` VALUES("Panzer Max", "COUGAR", "Full Tower", "MiniITX,uATX/Mi
 INSERT INTO `Case` VALUES("Core V21", "Thermaltake", "Micro", "MiniITX,uATX/MicroATX", 57.15);
 INSERT INTO `Case` VALUES("Enthoo Evolv", "Phanteks", "Micro", "MiniITX,uATX/MicroATX", 128.64);
 INSERT INTO `Case` VALUES("Manta Matte", "NZXT", "Mini", "MiniITX", 87.75);
-INSERT INTO `Case` VALUES("Cosmos II", "COOLERMASTER", "Ultra Tower", "uATX/MicroATX,ATX,Other", 338.97);
+INSERT INTO `Case` VALUES("Cosmos II", "COOLERMASTER", "Ultra Tower", "uATX/MicroATX,ATX,ExtendedATX", 338.97);
 
 
 INSERT INTO SSD VALUES("860 Evo 250", "SAMSUNG", 250, '2.5', 62.55, "SATA III", 520, 550);
@@ -339,5 +339,14 @@ INSERT INTO `Customer Card` VALUES(NULL, 9, 80, 700);
 INSERT INTO `Customer Card` VALUES(NULL, 10, 19, 900);
 INSERT INTO `Customer Card` VALUES(NULL, 10, 3, 200);
 
-
-
+                                                                                                                
+INSERT INTO `Order` VALUES(NULL, 1, "i7-8700K", "B250M-DS3H", NULL, NULL,  "CX Series CX550", "Cosmos C700P", NULL, NULL, "M3 Portable 1", 1, NULL);
+INSERT INTO `Order` VALUES(NULL, 10, "i3-8350K", "Z370P D3", NULL, NULL,  NULL, NULL,"860 Evo 500",  "Blue 1", NULL, 1, NULL);
+INSERT INTO `Order` VALUES(NULL, 2, NULL, NULL, NULL, NULL,  "RMi Series RM750i", "Source S340", NULL, "MX500", NULL, NULL, 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 3, "i5-8400", NULL, NULL, NULL, "Smart RGB 600", "Cosmos C700P", NULL, "Barracuda 1", NULL, 1, NULL);
+INSERT INTO `Order` VALUES(NULL, 4, NULL, NULL, NULL, NULL,  NULL, "Enthoo Evolv","860 Evo 1", "DT01ACA100", "Backup Plus Hub 6", 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 5, NULL, "PRIME B350 Plus", NULL, NULL,  "CX Series CX650M", NULL, "A400 120", NULL, NULL, 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 6, "Ryzen 5 2400G", "X370 Gaming Pro Carbon", NULL, NULL,  "CX Series CX550", "Cosmos II", "High Performance 120", NULL, "Blue 3", 1, NULL);
+INSERT INTO `Order` VALUES(NULL, 7, "Ryzen 7 2700X", NULL, NULL, NULL,  "Smart RGB 700", "MX330-X", NULL, NULL, "Elements Portable 3", 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 8, NULL, "B250M Pro-VD", NULL, NULL,  "CX Series CX550", NULL, "960 Evo NVME 500", "Black 1",  "Expansion Desktop 3", 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 9, NULL, "Z370-A Pro", NULL, NULL,  "TX-M Series TX650M", NULL, NULL, "DT01ACA100", "Expansion Desktop 3", 0, NULL);
