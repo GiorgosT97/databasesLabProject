@@ -4,6 +4,7 @@
 * Every attribute has to be specified for all tables. Exceptions are:
   * Supervisor for Administrator Tabke
   * All products in Order Table
+* Suppliers are writen UPPERCASE.
 ---
 ### <div style="background-color: Cyan;color:black;"> Graphics Card Table </div>
 * The types of GPU memories are only the following: 
@@ -26,4 +27,5 @@
 ---
 ### <div style="background-color: Cyan;color:black;"> Administrator Table </div>
 * E-mail field must be unique. 
+
 
