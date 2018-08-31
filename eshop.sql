@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `Customer Card` (
   `Points Used` MEDIUMINT NOT NULL DEFAULT 0,
   UNIQUE(`ID`),
   CONSTRAINT `Card_to_Customer`
-  FOREIGN KEY (ID) REFERENCES `Customer`(ID)
+  FOREIGN KEY (Customer_id) REFERENCES `Customer`(ID)
   ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
@@ -198,45 +198,6 @@ CREATE TABLE IF NOT EXISTS `Salary` (
 
 SET SQL_MODE='ALLOW_INVALID_DATES';
 
-
-INSERT INTO Administrator VALUES(NULL, "Giorgos", "Tsoulos", "giorgos@eshop.gr", "Test CV 0", "Senior", NULL);  
-INSERT INTO Administrator VALUES(NULL, "Dimitris", "Papandreou", "dimitris@eshop.gr", "Test CV 1", "Junior", 1);
-INSERT INTO Administrator VALUES(NULL, "Kwstas", "Kwstopoulos", "kwstas@eshop.gr", "Test CV 2", "Junior", 1); 
-INSERT INTO Administrator VALUES(NULL, "Marios", "Mariou", "marios@eshop.gr", "Test CV 3", "Senior", NULL); 
-INSERT INTO Administrator VALUES(NULL, "Andreas", "Andreou", "andreas@eshop.gr", "Test CV 4", "Junior", 4);
-INSERT INTO Administrator VALUES(NULL, "Mpampis", "Mpampou", "mpampis@eshop.gr", "Test CV 5", "Junior", 4);
-INSERT INTO Administrator VALUES(NULL, "Tasos", "Tasou", "tasos@eshop.gr", "Test CV 6", "Senior", NULL);
-INSERT INTO Administrator VALUES(NULL, "Alekos", "Alekou", "alekos@eshop.gr", "Test CV 7", "Senior", NULL);
-INSERT INTO Administrator VALUES(NULL, "Giorgos", "Giorgou", "ggiorgos@eshop.gr", "Test CV 8", "Junior", 8);
-INSERT INTO Administrator VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.gr", "Test CV 9", "Junior", 8); 
-
-
-INSERT INTO Salary VALUES(NULL, '1997-06-00', 1670.28, 1);
-INSERT INTO Salary VALUES(NULL, '1997-09-00', 1470.48, 1);
-INSERT INTO Salary VALUES(NULL, '1997-05-00', 660.35, 2);
-INSERT INTO Salary VALUES(NULL, '1997-09-00', 670.28, 3);
-INSERT INTO Salary VALUES(NULL, '1998-10-00', 1370.28, 4);
-INSERT INTO Salary VALUES(NULL, '1998-03-00', 1470.28, 7);
-INSERT INTO Salary VALUES(NULL, '1998-12-00', 670.28, 10);
-INSERT INTO Salary VALUES(NULL, '1998-05-00', 690.28, 9);
-INSERT INTO Salary VALUES(NULL, '1998-06-00', 590.28, 5);
-INSERT INTO Salary VALUES(NULL, '1998-11-00', 710.28, 6);
-INSERT INTO Salary VALUES(NULL, '1998-10-00', 1900.28, 4);
-INSERT INTO Salary VALUES(NULL, '1998-09-00', 2010.28, 1);
-INSERT INTO Salary VALUES(NULL, '1999-08-00', 700.28, 2);
-INSERT INTO Salary VALUES(NULL, '1999-04-00', 670.28, 3);
-
-
-INSERT INTO Customer VALUES(NULL, "Giorgos", "Tsoulos", "giorgos@eshop.gr", 694219546 , DEFAULT);  
-INSERT INTO Customer VALUES(NULL, "Dimitris", "Papandreou", "dimitris@eshop.gr", 69545611, '2001-05-20 12:15:10');
-INSERT INTO Customer VALUES(NULL, "Kwstas", "Kwstopoulos", "kwstas@eshop.gr", 69543812, '2001-10-02 11:15:12'); 
-INSERT INTO Customer VALUES(NULL, "Marios", "Mariou", "marios@eshop.gr", 6911643, '2002-01-18 09:32:22'); 
-INSERT INTO Customer VALUES(NULL, "Andreas", "Andreou", "andreas@eshop.gr", 69165464, '2002-03-03 07:05:11');
-INSERT INTO Customer VALUES(NULL, "Mpampis", "Mpampou", "mpampis@eshop.gr", 69151565, '2001-08-13 07:40:27');
-INSERT INTO Customer VALUES(NULL, "Tasos", "Tasou", "tasos@eshop.gr", 6911116, DEFAULT);
-INSERT INTO Customer VALUES(NULL, "Alekos", "Alekou", "alekos@eshop.gr", 69254657, '2001-12-12 19:55:23');
-INSERT INTO Customer VALUES(NULL, "Giorgos", "Giorgou", "ggiorgos@eshop.gr", 696548, '2002-03-10 17:35:14');
-INSERT INTO Customer VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.gr", 69465319, '2003-05-08 19:45:02'); 
 
 
 INSERT INTO CPU VALUES("i7-8700K", "Intel", 3.7, 6, 12, "1151", "512", 95, 359.99);
@@ -324,9 +285,59 @@ INSERT INTO `External HD` VALUES("M3 Portable 4", "Maxtor", 4, "2.5", 62.99, "US
 INSERT INTO `External HD` VALUES("Expansion Desktop 3", "SEAGATE", 3, "3.5", 81.09, "USB 3.0", "No");
 
 
+INSERT INTO Administrator VALUES(NULL, "Giorgos", "Tsoulos", "giorgos@eshop.gr", "Test CV 0", "Senior", NULL);  
+INSERT INTO Administrator VALUES(NULL, "Dimitris", "Papandreou", "dimitris@eshop.gr", "Test CV 1", "Junior", 1);
+INSERT INTO Administrator VALUES(NULL, "Kwstas", "Kwstopoulos", "kwstas@eshop.gr", "Test CV 2", "Junior", 1); 
+INSERT INTO Administrator VALUES(NULL, "Marios", "Mariou", "marios@eshop.gr", "Test CV 3", "Senior", NULL); 
+INSERT INTO Administrator VALUES(NULL, "Andreas", "Andreou", "andreas@eshop.gr", "Test CV 4", "Junior", 4);
+INSERT INTO Administrator VALUES(NULL, "Mpampis", "Mpampou", "mpampis@eshop.gr", "Test CV 5", "Junior", 4);
+INSERT INTO Administrator VALUES(NULL, "Tasos", "Tasou", "tasos@eshop.gr", "Test CV 6", "Senior", NULL);
+INSERT INTO Administrator VALUES(NULL, "Alekos", "Alekou", "alekos@eshop.gr", "Test CV 7", "Senior", NULL);
+INSERT INTO Administrator VALUES(NULL, "Giorgos", "Giorgou", "ggiorgos@eshop.gr", "Test CV 8", "Junior", 8);
+INSERT INTO Administrator VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.gr", "Test CV 9", "Junior", 8); 
 
 
+INSERT INTO Salary VALUES(NULL, '1997-06-00', 1670.28, 1);
+INSERT INTO Salary VALUES(NULL, '1997-09-00', 1470.48, 1);
+INSERT INTO Salary VALUES(NULL, '1997-05-00', 660.35, 2);
+INSERT INTO Salary VALUES(NULL, '1997-09-00', 670.28, 3);
+INSERT INTO Salary VALUES(NULL, '1998-10-00', 1370.28, 4);
+INSERT INTO Salary VALUES(NULL, '1998-03-00', 1470.28, 7);
+INSERT INTO Salary VALUES(NULL, '1998-12-00', 670.28, 10);
+INSERT INTO Salary VALUES(NULL, '1998-05-00', 690.28, 9);
+INSERT INTO Salary VALUES(NULL, '1998-06-00', 590.28, 5);
+INSERT INTO Salary VALUES(NULL, '1998-11-00', 710.28, 6);
+INSERT INTO Salary VALUES(NULL, '1998-10-00', 1900.28, 4);
+INSERT INTO Salary VALUES(NULL, '1998-09-00', 2010.28, 1);
+INSERT INTO Salary VALUES(NULL, '1999-08-00', 700.28, 2);
+INSERT INTO Salary VALUES(NULL, '1999-04-00', 670.28, 3);
 
+
+INSERT INTO Customer VALUES(NULL, "Giorgos", "Tsoulos", "giorgos@eshop.gr", 694219546 , DEFAULT);  
+INSERT INTO Customer VALUES(NULL, "Dimitris", "Papandreou", "dimitris@eshop.gr", 69545611, '2001-05-20 12:15:10');
+INSERT INTO Customer VALUES(NULL, "Kwstas", "Kwstopoulos", "kwstas@eshop.gr", 69543812, '2001-10-02 11:15:12'); 
+INSERT INTO Customer VALUES(NULL, "Marios", "Mariou", "marios@eshop.gr", 6911643, '2002-01-18 09:32:22'); 
+INSERT INTO Customer VALUES(NULL, "Andreas", "Andreou", "andreas@eshop.gr", 69165464, '2002-03-03 07:05:11');
+INSERT INTO Customer VALUES(NULL, "Mpampis", "Mpampou", "mpampis@eshop.gr", 69151565, '2001-08-13 07:40:27');
+INSERT INTO Customer VALUES(NULL, "Tasos", "Tasou", "tasos@eshop.gr", 6911116, DEFAULT);
+INSERT INTO Customer VALUES(NULL, "Alekos", "Alekou", "alekos@eshop.gr", 69254657, '2001-12-12 19:55:23');
+INSERT INTO Customer VALUES(NULL, "Giorgos", "Giorgou", "ggiorgos@eshop.gr", 696548, '2002-03-10 17:35:14');
+INSERT INTO Customer VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.gr", 69465319, '2003-05-08 19:45:02'); 
+
+
+INSERT INTO `Customer Card` VALUES(NULL, 1, 50, 100);
+INSERT INTO `Customer Card` VALUES(NULL, 1, 60, 200);
+INSERT INTO `Customer Card` VALUES(NULL, 2, 285, 900);
+INSERT INTO `Customer Card` VALUES(NULL, 3, 96, 200);
+INSERT INTO `Customer Card` VALUES(NULL, 4, 15, 500);
+INSERT INTO `Customer Card` VALUES(NULL, 5, 75, 400);
+INSERT INTO `Customer Card` VALUES(NULL, 6, 125, 300);
+INSERT INTO `Customer Card` VALUES(NULL, 6, 145, 300);
+INSERT INTO `Customer Card` VALUES(NULL, 7, 197, 200);
+INSERT INTO `Customer Card` VALUES(NULL, 8, 253, 400);
+INSERT INTO `Customer Card` VALUES(NULL, 9, 80, 700);
+INSERT INTO `Customer Card` VALUES(NULL, 10, 19, 900);
+INSERT INTO `Customer Card` VALUES(NULL, 10, 3, 200);
 
 
 
