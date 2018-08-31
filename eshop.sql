@@ -47,14 +47,13 @@ CREATE TABLE IF NOT EXISTS `GPU` (
   `Model` VARCHAR(30) NOT NULL,
   `Supplier` VARCHAR(45) NOT NULL,
   `Cpu Type` ENUM('AMD', 'Nvidia') NOT NULL,
-  `Physical Connections` INT(2) NOT NULL,
-  `Type` SET('DVI-D', 'DVI-I', 'VGA', 'Mini HDMI', 'HDMI', 'DisplayPort', 'Mini DisplayPort') NOT NULL,
-  `Memory` DECIMAL NOT NULL,
+  `Physical Connections` SET('DVI-D', 'DVI-I', 'VGA', 'Mini HDMI', 'HDMI', 'DisplayPort', 'Mini DisplayPort') NOT NULL,
+  `Memory` TINYINT NOT NULL,
   `Memory Type` ENUM('GDDR SDRAM', 'GDDR2', 'GDDR3', 'GDDR4', 'GDDR5', 'Other') NOT NULL,
-  `Base Clock` DECIMAL NOT NULL,
-  `Memory Clock` DECIMAL NOT NULL ,
+  `Base Clock` SMALLINT NOT NULL,
+  `Memory Clock` SMALLINT NOT NULL ,
   `Power` SMALLINT NOT NULL,
-  `Price` DECIMAL(2) NOT NULL,
+  `Price` DECIMAL(6,2) NOT NULL,
   PRIMARY KEY (`Model`),
   UNIQUE(`Model`)
 )ENGINE = InnoDB;
@@ -248,6 +247,18 @@ INSERT INTO PSU VALUES("Smart RGB 600", "THERMALTAKE", 600, 47.38);
 INSERT INTO PSU VALUES("FOCUS PLUS 750", "SEASONIC", 750, 123.69);
 
 
+INSERT INTO GPU VALUES("GeForce GTX1060", "MSI", "Nvidia", "DVI-D,DisplayPort,HDMI", 6, "GDDR5", 1569, 8000, 400, 315.70);
+INSERT INTO GPU VALUES("GeForce GTX1050", "GIGABYTE", "Nvidia", "DVI-D,DisplayPort,HDMI", 4, "GDDR5", 1354, 7008, 300, 188.81);
+INSERT INTO GPU VALUES("GeForce GTX1050 Ti", "MSI", "Nvidia", "DVI-D,DisplayPort,HDMI", 4, "GDDR5", 1290, 7008, 300, 188.48);
+INSERT INTO GPU VALUES("GeForce GTX1070 Ti", "GIGABYTE", "Nvidia", "DVI-D,DisplayPort,HDMI", 8, "GDDR5", 1721, 8008, 500, 459.20);
+INSERT INTO GPU VALUES("GeForce GT 1030", "ASUS", "Nvidia", "DVI-D,HDMI", 2, "GDDR5", 1252, 6008, 200, 82.02);
+INSERT INTO GPU VALUES("Radeon RX 580", "GIGABYTE", "AMD", "DVI-D,DisplayPort,HDMI", 8, "GDDR5", 1340, 8000, 500, 303.26);
+INSERT INTO GPU VALUES("Radeon RX 570", "SAPPHIRE", "AMD", "DVI-D,DisplayPort,HDMI", 8, "GDDR5", 1340, 7000, 500, 292.20);
+INSERT INTO GPU VALUES("GeForce GT710", "PNY", "Nvidia", "DVI-D,BGA,HDMI", 1, "GDDR3", 954, 1600, 50, 41.85);
+INSERT INTO GPU VALUES("Radeon R7 240", "GIGABYTE", "AMD", "DVI-D,VGA,HDMI", 4, "GDDR3", 770, 1800, 50, 92.00);
+INSERT INTO GPU VALUES("GeForce GT730", "GAINWARD", "Nvidia", "DVI-D,HDMI", 2, "GDDR3", 902, 800, 300, 54.90);
+
+
 INSERT INTO `Case` VALUES("Source S340", "NZXT", "Midi", "ATX,MiniITX,uATX/MicroATX", 70.93);
 INSERT INTO `Case` VALUES("MX330-X", "COUGAR", "Midi", "ATX,MiniITX,uATX/MicroATX", 28.03);
 INSERT INTO `Case` VALUES("Masterbox Lite 3.1", "COOLERMASTER", "Midi", "MiniITX,uATX/MicroATX", 39.00);
@@ -352,13 +363,13 @@ INSERT INTO `Customer Card` VALUES(NULL, 10, 19, 900);
 INSERT INTO `Customer Card` VALUES(NULL, 10, 3, 200);
 
                                                                                                                 
-INSERT INTO `Order` VALUES(NULL, 1, "i7-8700K", "B250M-DS3H", "RipjawsV", NULL,  "CX Series CX550", "Cosmos C700P", NULL, NULL, "M3 Portable 1", 1, NULL);
+INSERT INTO `Order` VALUES(NULL, 1, "i7-8700K", "B250M-DS3H", "RipjawsV", "GeForce GTX1060",  "CX Series CX550", "Cosmos C700P", NULL, NULL, "M3 Portable 1", 1, NULL);
 INSERT INTO `Order` VALUES(NULL, 10, "i3-8350K", "Z370P D3", NULL, NULL,  NULL, NULL,"860 Evo 500",  "Blue 1", NULL, 1, NULL);
 INSERT INTO `Order` VALUES(NULL, 2, NULL, NULL, "Aegis", NULL,  "RMi Series RM750i", "Source S340", "MX500", NULL, NULL, 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 3, "i5-8400", NULL, "Ballistix Sport LT", NULL, "Smart RGB 600", "Cosmos C700P", NULL, "Barracuda 1", NULL, 1, NULL);
-INSERT INTO `Order` VALUES(NULL, 4, NULL, NULL, NULL, NULL,  NULL, "Enthoo Evolv","860 Evo 1", "DT01ACA100", "Backup Plus Hub 6", 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 4, NULL, NULL, NULL, NULL,  "Radeon RX 570", "Enthoo Evolv","860 Evo 1", "DT01ACA100", "Backup Plus Hub 6", 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 5, NULL, "PRIME B350 Plus", "TridentZ", NULL,  "CX Series CX650M", NULL, "A400 120", NULL, NULL, 0, NULL);
-INSERT INTO `Order` VALUES(NULL, 6, "Ryzen 5 2400G", "X370 Gaming Pro Carbon", NULL, NULL,  "CX Series CX550", "Cosmos II", "High Performance 120", NULL, "Blue 3", 1, NULL);
+INSERT INTO `Order` VALUES(NULL, 6, "Ryzen 5 2400G", "X370 Gaming Pro Carbon", NULL, "Radeon RX 580",  "CX Series CX550", "Cosmos II", "High Performance 120", NULL, "Blue 3", 1, NULL);
 INSERT INTO `Order` VALUES(NULL, 7, "Ryzen 7 2700X", NULL, NULL, NULL,  "Smart RGB 700", "MX330-X", NULL, NULL, "Elements Portable 3", 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 8, NULL, "B250M Pro-VD", "Vegeance LPX", NULL,  "CX Series CX550", NULL, "960 Evo NVME 500", "Black 1",  "Expansion Desktop 3", 0, NULL);
-INSERT INTO `Order` VALUES(NULL, 9, NULL, "Z370-A Pro", "Fury Black", NULL,  "TX-M Series TX650M", NULL, NULL, "DT01ACA100", "Expansion Desktop 3", 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 9, NULL, "Z370-A Pro", "Fury Black", NULL,  "TX-M Series TX650M", NULL, "Radeon R7 240", "DT01ACA100", "Expansion Desktop 3", 0, NULL);
