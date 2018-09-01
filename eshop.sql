@@ -162,6 +162,33 @@ CREATE TABLE IF NOT EXISTS `Order` (
   UNIQUE(`ID`),
   CONSTRAINT `Order_to_Customer`
   FOREIGN KEY (`Customer`)  REFERENCES `Customer`(`ID`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Order_to_CPU`
+  FOREIGN KEY (`CPU`)  REFERENCES `CPU`(`Model`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Order_to_Motherboard`
+  FOREIGN KEY (`Motherboard`)  REFERENCES `Motherboard`(`Model`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Order_to_RAM`
+  FOREIGN KEY (`RAM`)  REFERENCES `RAM`(`Model`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Order_to_GPU`
+  FOREIGN KEY (`GPU`)  REFERENCES `GPU`(`Model`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Order_to_PSU`
+  FOREIGN KEY (`PSU`)  REFERENCES `PSU`(`Model`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Order_to_Case`
+  FOREIGN KEY (`Case`)  REFERENCES `Case`(`Model`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Order_to_SSD`
+  FOREIGN KEY (`SSD`)  REFERENCES `SSD`(`Model`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Order_to_HDD`
+  FOREIGN KEY (`HDD`)  REFERENCES `HDD`(`Model`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Order_to_External HD`
+  FOREIGN KEY (`External HD`)  REFERENCES `External HD`(`Model`)
   ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
@@ -367,9 +394,9 @@ INSERT INTO `Order` VALUES(NULL, 1, "i7-8700K", "B250M-DS3H", "RipjawsV", "GeFor
 INSERT INTO `Order` VALUES(NULL, 10, "i3-8350K", "Z370P D3", NULL, NULL,  NULL, NULL,"860 Evo 500",  "Blue 1", NULL, 1, NULL);
 INSERT INTO `Order` VALUES(NULL, 2, NULL, NULL, "Aegis", NULL,  "RMi Series RM750i", "Source S340", "MX500", NULL, NULL, 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 3, "i5-8400", NULL, "Ballistix Sport LT", NULL, "Smart RGB 600", "Cosmos C700P", NULL, "Barracuda 1", NULL, 1, NULL);
-INSERT INTO `Order` VALUES(NULL, 4, NULL, NULL, NULL, NULL,  "Radeon RX 570", "Enthoo Evolv","860 Evo 1", "DT01ACA100", "Backup Plus Hub 6", 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 4, NULL, NULL, NULL, "Radeon RX 570", NULL, "Enthoo Evolv","860 Evo 1", "DT01ACA100", "Backup Plus Hub 6", 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 5, NULL, "PRIME B350 Plus", "TridentZ", NULL,  "CX Series CX650M", NULL, "A400 120", NULL, NULL, 0, NULL);
-INSERT INTO `Order` VALUES(NULL, 6, "Ryzen 5 2400G", "X370 Gaming Pro Carbon", NULL, "Radeon RX 580",  "CX Series CX550", "Cosmos II", "High Performance 120", NULL, "Blue 3", 1, NULL);
+INSERT INTO `Order` VALUES(NULL, 6, "Ryzen 5 2400G", "X370 Gaming Pro Carbon", NULL, "Radeon RX 580",  "CX Series CX550", "Cosmos II", "High Performance 120", "Blue 3", NULL, 1, NULL);
 INSERT INTO `Order` VALUES(NULL, 7, "Ryzen 7 2700X", NULL, NULL, NULL,  "Smart RGB 700", "MX330-X", NULL, NULL, "Elements Portable 3", 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 8, NULL, "B250M Pro-VD", "Vegeance LPX", NULL,  "CX Series CX550", NULL, "960 Evo NVME 500", "Black 1",  "Expansion Desktop 3", 0, NULL);
-INSERT INTO `Order` VALUES(NULL, 9, NULL, "Z370-A Pro", "Fury Black", NULL,  "TX-M Series TX650M", NULL, "Radeon R7 240", "DT01ACA100", "Expansion Desktop 3", 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 9, NULL, "Z370-A Pro", "Fury Black", "Radeon R7 240",  "TX-M Series TX650M", NULL, NULL, "DT01ACA100", "Expansion Desktop 3", 0, NULL);
