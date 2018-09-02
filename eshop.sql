@@ -396,9 +396,9 @@ INSERT INTO `Order` VALUES(NULL, 1, "i7-8700K", "B250M-DS3H", "RipjawsV", "GeFor
 INSERT INTO `Order` VALUES(NULL, 10, "i3-8350K", "Z370P D3", NULL, NULL,  "RMi Series RM750i", NULL,"860 Evo 500",  "Blue 1", NULL, '1996-12-13', 1, NULL);
 INSERT INTO `Order` VALUES(NULL, 2, NULL, NULL, "Aegis", NULL,  "RMi Series RM750i", "Source S340", "MX500", NULL, NULL, '1997-02-05', 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 3, "i5-8400", NULL, "Ballistix Sport LT", NULL, "Smart RGB 700", "Cosmos C700P", NULL, "Barracuda 1", NULL, '1997-01-03', 1, NULL);
-INSERT INTO `Order` VALUES(NULL, 4, NULL, NULL, NULL, "Radeon RX 570", NULL, "Enthoo Evolv","860 Evo 1", "DT01ACA100", "Backup Plus Hub 6", '1997-04-11',0, NULL);
+INSERT INTO `Order` VALUES(NULL, 3, NULL, NULL, NULL, "Radeon RX 570", NULL, "Enthoo Evolv","860 Evo 1", "DT01ACA100", "Backup Plus Hub 6", '1997-04-11',0, NULL);
 INSERT INTO `Order` VALUES(NULL, 5, NULL, "PRIME B350 Plus", "TridentZ", NULL,  "CX Series CX650M", NULL, "A400 120", NULL, NULL, '1997-05-18', 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 6, "Ryzen 5 2400G", "X370 Gaming Pro Carbon", NULL, "Radeon RX 580",  "CX Series CX550", "Cosmos II", "High Performance 120", "Blue 3", NULL, '1992-04-07', 1, NULL);
 INSERT INTO `Order` VALUES(NULL, 7, "Ryzen 7 2700X", NULL, NULL, NULL,  "Smart RGB 700", "MX330-X", NULL, NULL, "Elements Portable 3", '1997-05-23', 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 8, NULL, "B250M Pro-VD", "Vegeance LPX", NULL,  "CX Series CX550", NULL, "960 Evo NVME 500", "Black 1",  "Expansion Desktop 3", '1997-04-18', 0, NULL);
-INSERT INTO `Order` VALUES(NULL, 9, NULL, "Z370-A Pro", "Fury Black", "Radeon R7 240",  "TX-M Series TX650M", NULL, NULL, "DT01ACA100", "Expansion Desktop 3", '1997-09-22', 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 8, NULL, "Z370-A Pro", "Fury Black", "Radeon R7 240",  "TX-M Series TX650M", NULL, NULL, "DT01ACA100", "Expansion Desktop 3", '1997-09-22', 0, NULL);
