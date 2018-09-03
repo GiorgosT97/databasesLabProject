@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `CPU` (
   `Frequency` DECIMAL(2,2) NOT NULL,
   `Cores` INT(2) NOT NULL,
   `Threads` INT(2) NOT NULL,
-  `Socket` VARCHAR(10) NOT NULL,
+  `Socket` VARCHAR(20) NOT NULL,
   `Level1 Cache` ENUM('32', '64', '72', '80', '96', '128', '256', '512') NOT NULL,
   `Supply Power` INT NOT NULL,
   `Price` DECIMAL(6,2) NOT NULL,
@@ -266,8 +266,11 @@ DELIMITER ;
 DELIMITER $
 CREATE PROCEDURE check_compability(IN M_model VARCHAR(30))
 BEGIN
-  INSERT INTO ModelsCompability(Motherboard) VALUES(M_model);
-END $
+  INSERT INTO ModelsCompability 
+  VALUES(M_model, 
+  (SELECT CPU.Model FROM CPU INNER JOIN Motherboard ON Motherboard.Socket=CPU.Socket
+  WHERE Motherboard.Model=M_model LIMIT 1));
+  END $
 DELIMITER ;
 
 
