@@ -241,8 +241,13 @@ BEGIN
   IFNULL((SELECT `Price` FROM `External HD` WHERE `External HD`.Model=NEW.`External HD`),0) + 
   IFNULL((SELECT `Price` FROM RAM WHERE RAM.Model=NEW.RAM),0) +
   IFNULL((SELECT `Price` FROM GPU WHERE GPU.Model=NEW.GPU),0);
-  IF((SELECT `Points Available` FROM `Customer Card`, Customer WHERE `Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer)>100)
-    THEN SET sum_c = sum_c - (0.1 * sum_c);
+  IF (100< ANY(SELECT `Points Available` FROM `Customer Card`, Customer WHERE `Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer) )
+    THEN
+      BEGIN 
+      SET sum_c = sum_c - (0.1 * sum_c);
+      UPDATE `Customer Card`, Customer SET `Customer Card`.`Points Available`=(`Customer Card`.`Points Available`-100) WHERE (`Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer);
+      UPDATE `Customer Card`, Customer SET `Customer Card`.`Points Used`=(`Customer Card`.`Points Used`+ 100) WHERE (`Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer);
+      END;
   END IF;
   SET NEW.`Sum Cost`=sum_c;
 END$
@@ -398,19 +403,19 @@ INSERT INTO Customer VALUES(NULL, "Giorgos", "Giorgou", "ggiorgos@eshop.gr", 696
 INSERT INTO Customer VALUES(NULL, "Alexandros", "Alexandrou", "alexandros@eshop.gr", 69465319, '2003-05-08 19:45:02'); 
 
 
-INSERT INTO `Customer Card` VALUES(NULL, 1, 50, 100);
-INSERT INTO `Customer Card` VALUES(NULL, 1, 60, 200);
+INSERT INTO `Customer Card` VALUES(NULL, 1, 150, 100);
+INSERT INTO `Customer Card` VALUES(NULL, 1, 160, 200);
 INSERT INTO `Customer Card` VALUES(NULL, 2, 285, 900);
-INSERT INTO `Customer Card` VALUES(NULL, 3, 96, 200);
+INSERT INTO `Customer Card` VALUES(NULL, 3, 196, 200);
 INSERT INTO `Customer Card` VALUES(NULL, 4, 15, 500);
-INSERT INTO `Customer Card` VALUES(NULL, 5, 75, 400);
+INSERT INTO `Customer Card` VALUES(NULL, 5, 175, 400);
 INSERT INTO `Customer Card` VALUES(NULL, 6, 125, 300);
 INSERT INTO `Customer Card` VALUES(NULL, 6, 145, 300);
 INSERT INTO `Customer Card` VALUES(NULL, 7, 197, 200);
 INSERT INTO `Customer Card` VALUES(NULL, 8, 253, 400);
-INSERT INTO `Customer Card` VALUES(NULL, 9, 80, 700);
+INSERT INTO `Customer Card` VALUES(NULL, 9, 180, 700);
 INSERT INTO `Customer Card` VALUES(NULL, 10, 19, 900);
-INSERT INTO `Customer Card` VALUES(NULL, 10, 3, 200);
+INSERT INTO `Customer Card` VALUES(NULL, 10, 13, 200);
 
                                                                                                                 
 INSERT INTO `Order` VALUES(NULL, 1, "i7-8700K", "B250M-DS3H", "RipjawsV", "GeForce GTX1060",  "CX Series CX550", "Cosmos C700P", NULL, NULL, "M3 Portable 1", '1997-06-25', 1, 0);
