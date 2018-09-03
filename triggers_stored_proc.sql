@@ -5,6 +5,7 @@ BEFORE INSERT ON `Order`
 FOR EACH ROW 
 BEGIN
   DECLARE sum_c DECIMAL(10,2);
+  DECLARE new_points SMALLINT; 
   SET sum_c = IFNULL((SELECT `Price` FROM CPU WHERE CPU.Model=NEW.CPU),0) +
   IFNULL((SELECT `Price` FROM Motherboard WHERE Motherboard.Model=NEW.Motherboard),0) +
   IFNULL((SELECT `Price` FROM PSU WHERE PSU.Model=NEW.PSU),0) + 
@@ -17,8 +18,9 @@ BEGIN
   IF (100< ANY(SELECT `Points Available` FROM `Customer Card`, Customer WHERE `Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer) )
     THEN
       BEGIN 
+      SET new_points = FLOOR(0.1 * sum_c)
       SET sum_c = sum_c - (0.1 * sum_c);
-      UPDATE `Customer Card`, Customer SET `Customer Card`.`Points Available`=(`Customer Card`.`Points Available`-100) WHERE (`Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer);
+      UPDATE `Customer Card`, Customer SET `Customer Card`.`Points Available`=(`Customer Card`.`Points Available`-100 + new_points) WHERE (`Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer);
       UPDATE `Customer Card`, Customer SET `Customer Card`.`Points Used`=(`Customer Card`.`Points Used`+ 100) WHERE (`Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer);
       END;
   END IF;
