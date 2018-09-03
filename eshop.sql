@@ -253,7 +253,7 @@ BEGIN
   IF (100< ANY(SELECT `Points Available` FROM `Customer Card`, Customer WHERE `Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer) )
     THEN
       BEGIN 
-      SET new_points = FLOOR(0.1 * sum_c)
+      SET new_points = FLOOR(sum_c * 0.1);
       SET sum_c = sum_c - (0.1 * sum_c);
       UPDATE `Customer Card`, Customer SET `Customer Card`.`Points Available`=(`Customer Card`.`Points Available`-100 + new_points) WHERE (`Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer);
       UPDATE `Customer Card`, Customer SET `Customer Card`.`Points Used`=(`Customer Card`.`Points Used`+ 100) WHERE (`Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer);
@@ -262,6 +262,20 @@ BEGIN
   SET NEW.`Sum Cost`=sum_c;
 END$
 DELIMITER ;
+
+DELIMITER $
+CREATE PROCEDURE check_compability(IN M_model VARCHAR(30))
+BEGIN
+  INSERT INTO ModelsCompability(Motherboard) VALUES(M_model);
+END $
+DELIMITER ;
+
+
+CREATE TRIGGER call_check_proc
+BEFORE INSERT ON Motherboard
+FOR EACH ROW 
+CALL check_compability(NEW.Model);
+
 
 INSERT INTO CPU VALUES("i7-8700K", "Intel", 3.7, 6, 12, "1151", "512", 95, 359.99);
 INSERT INTO CPU VALUES("i5-8400", "Intel", 2.8, 6, 6, "1151", "512", 87, 180.00);
@@ -326,7 +340,7 @@ INSERT INTO GPU VALUES("GeForce GT730", "GAINWARD", "Nvidia", "DVI-D,HDMI", 2, "
 INSERT INTO `Case` VALUES("Source S340", "NZXT", "Midi", "ATX,MiniITX,uATX/MicroATX", 70.93);
 INSERT INTO `Case` VALUES("MX330-X", "COUGAR", "Midi", "ATX,MiniITX,uATX/MicroATX", 28.03);
 INSERT INTO `Case` VALUES("Masterbox Lite 3.1", "COOLERMASTER", "Midi", "MiniITX,uATX/MicroATX", 39.00);
-INSERT INTO `Case` VALUES("Source S340", "NZXT", "Midi", "ATX,MiniITX,uATX/MicroATX", 70.93);
+INSERT INTO `Case` VALUES("Source S350", "NZXT", "Midi", "ATX,MiniITX,uATX/MicroATX", 75.22);
 INSERT INTO `Case` VALUES("Cosmos C700P", "COOLERMASTER", "Full Tower", "MiniITX,uATX/MicroATX,ATX,ExtendedATX", 309.48);
 INSERT INTO `Case` VALUES("Panzer Max", "COUGAR", "Full Tower", "MiniITX,uATX/MicroATX,ATX,ExtendedATX,Other", 200.52);
 INSERT INTO `Case` VALUES("Core V21", "Thermaltake", "Micro", "MiniITX,uATX/MicroATX", 57.15);
