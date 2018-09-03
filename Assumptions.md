@@ -27,5 +27,6 @@
 ---
 ### <div style="background-color: Cyan;color:black;"> Administrator Table </div>
 * E-mail field must be unique. 
-
-
+---
+### <div style="background-color: Cyan;color:black;"> Order Table </div>
+* Products use together will have values 0 or 1 (False or True) __only__, in database. 
