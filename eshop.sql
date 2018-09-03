@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `Order` (
   `External HD` VARCHAR(30) NULL,
   `Date` Date NOT NULL,
   `Products Use Together` TINYINT(1) NOT NULL,
-  `Sum Cost` DECIMAL(6,3) NULL,
+  `Sum Cost` DECIMAL(10,2) NULL,
   PRIMARY KEY (`ID`),
   UNIQUE(`ID`),
   CONSTRAINT `Order_to_Customer`
@@ -225,7 +225,28 @@ CREATE TABLE IF NOT EXISTS `Salary` (
 
 SET SQL_MODE='ALLOW_INVALID_DATES';
 
-
+DROP TRIGGER IF EXISTS Sum_cost;
+DELIMITER $
+CREATE TRIGGER Sum_Cost
+BEFORE INSERT ON `Order`
+FOR EACH ROW 
+BEGIN
+  DECLARE sum_c DECIMAL(10,2);
+  SET sum_c = IFNULL((SELECT `Price` FROM CPU WHERE CPU.Model=NEW.CPU),0) +
+  IFNULL((SELECT `Price` FROM Motherboard WHERE Motherboard.Model=NEW.Motherboard),0) +
+  IFNULL((SELECT `Price` FROM PSU WHERE PSU.Model=NEW.PSU),0) + 
+  IFNULL((SELECT `Price` FROM `Case` WHERE `Case`.Model=NEW.`Case`),0) + 
+  IFNULL((SELECT `Price` FROM SSD WHERE SSD.Model=NEW.SSD),0) +
+  IFNULL((SELECT `Price` FROM HDD WHERE HDD.Model=NEW.HDD),0) + 
+  IFNULL((SELECT `Price` FROM `External HD` WHERE `External HD`.Model=NEW.`External HD`),0) + 
+  IFNULL((SELECT `Price` FROM RAM WHERE RAM.Model=NEW.RAM),0) +
+  IFNULL((SELECT `Price` FROM GPU WHERE GPU.Model=NEW.GPU),0);
+  IF((SELECT `Points Available` FROM `Customer Card`, Customer WHERE `Customer Card`.Customer_id=Customer.ID AND Customer.ID=NEW.Customer)>100)
+    THEN SET sum_c = sum_c - (0.1 * sum_c);
+  END IF;
+  SET NEW.`Sum Cost`=sum_c;
+END$
+DELIMITER ;
 
 INSERT INTO CPU VALUES("i7-8700K", "Intel", 3.7, 6, 12, "1151", "512", 95, 359.99);
 INSERT INTO CPU VALUES("i5-8400", "Intel", 2.8, 6, 6, "1151", "512", 87, 180.00);
@@ -392,7 +413,7 @@ INSERT INTO `Customer Card` VALUES(NULL, 10, 19, 900);
 INSERT INTO `Customer Card` VALUES(NULL, 10, 3, 200);
 
                                                                                                                 
-INSERT INTO `Order` VALUES(NULL, 1, "i7-8700K", "B250M-DS3H", "RipjawsV", "GeForce GTX1060",  "CX Series CX550", "Cosmos C700P", NULL, NULL, "M3 Portable 1", '1997-06-25', 1, NULL);
+INSERT INTO `Order` VALUES(NULL, 1, "i7-8700K", "B250M-DS3H", "RipjawsV", "GeForce GTX1060",  "CX Series CX550", "Cosmos C700P", NULL, NULL, "M3 Portable 1", '1997-06-25', 1, 0);
 INSERT INTO `Order` VALUES(NULL, 10, "i3-8350K", "Z370P D3", NULL, NULL,  "RMi Series RM750i", NULL,"860 Evo 500",  "Blue 1", NULL, '1996-12-13', 1, NULL);
 INSERT INTO `Order` VALUES(NULL, 2, NULL, NULL, "Aegis", NULL,  "RMi Series RM750i", "Source S340", "MX500", NULL, NULL, '1997-02-05', 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 3, "i5-8400", NULL, "Ballistix Sport LT", NULL, "Smart RGB 700", "Cosmos C700P", NULL, "Barracuda 1", NULL, '1997-01-03', 1, NULL);
