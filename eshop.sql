@@ -266,19 +266,35 @@ DELIMITER ;
 DELIMITER $
 CREATE PROCEDURE check_compability(IN M_model VARCHAR(30))
 BEGIN
-  INSERT INTO ModelsCompability 
-  VALUES(M_model, 
-  (SELECT CPU.Model FROM CPU INNER JOIN Motherboard ON Motherboard.Socket=CPU.Socket
-  WHERE Motherboard.Model=M_model LIMIT 1));
-  END $
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE cpu_model VARCHAR(30);
+  DECLARE cpu_socket VARCHAR(20);
+  DECLARE curs CURSOR FOR SELECT Model, Socket FROM CPU;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN curs;
+  read_loop: LOOP
+    FETCH curs INTO cpu_model, cpu_socket;
+    IF done THEN 
+      LEAVE read_loop;
+    END IF;
+   
+    IF cpu_socket=(SELECT Motherboard.Socket FROM Motherboard WHERE Motherboard.Model=M_model) THEN
+      INSERT INTO ModelsCompability VALUES(M_model, cpu_model);
+    END IF;
+  END LOOP;
+  CLOSE curs;
+END $
 DELIMITER ;
 
-
+DELIMITER $
 CREATE TRIGGER call_check_proc
-BEFORE INSERT ON Motherboard
+AFTER INSERT ON Motherboard
 FOR EACH ROW 
-CALL check_compability(NEW.Model);
-
+BEGIN
+  CALL check_compability(NEW.Model);
+END $
+DELIMITER ;
 
 INSERT INTO CPU VALUES("i7-8700K", "Intel", 3.7, 6, 12, "1151", "512", 95, 359.99);
 INSERT INTO CPU VALUES("i5-8400", "Intel", 2.8, 6, 6, "1151", "512", 87, 180.00);
