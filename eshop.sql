@@ -262,6 +262,10 @@ BEGIN
   END IF;
   IF NEW.`Products Use Together`=1 THEN
     CALL check_use_together(NEW.Motherboard, NEW.`Case`, NEW.CPU, NEW.RAM, NEW.GPU, NEW.PSU, can_be_used);
+    IF can_be_used="compatibility failure" THEN
+      SIGNAL SQLSTATE VALUE '45000'
+      SET MESSAGE_TEXT = 'Invalid Order! Products cannot be used together.';
+    END IF;
   END IF;
   SET NEW.`Sum Cost`=sum_c;
 END$
@@ -499,3 +503,6 @@ INSERT INTO `Order` VALUES(NULL, 6, "Ryzen 5 2400G", "X370 Gaming Pro Carbon", N
 INSERT INTO `Order` VALUES(NULL, 7, "Ryzen 7 2700X", NULL, NULL, NULL,  "Smart RGB 700", "MX330-X", NULL, NULL, "Elements Portable 3", '1997-05-23', 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 8, NULL, "B250M Pro-VD", "Vegeance LPX", NULL,  "CX Series CX550", NULL, "960 Evo NVME 500", "Black 1",  "Expansion Desktop 3", '1997-04-18', 0, NULL);
 INSERT INTO `Order` VALUES(NULL, 8, NULL, "Z370-A Pro", "Fury Black", "Radeon R7 240",  "TX-M Series TX650M", NULL, NULL, "DT01ACA100", "Expansion Desktop 3", '1997-09-22', 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 10, NULL, "X370 Gaming Pro Carbon", NULL, NULL,  NULL, "Enthoo Evolv", "A400 120", NULL, "Elements Portable 3", '1997-01-17', 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 1, NULL, "PRIME B350 Plus", "Aegis", NULL,  NULL, NULL, "A400 120", NULL, NULL, '1997-02-12', 0, NULL);
+INSERT INTO `Order` VALUES(NULL, 10, "i3-8350K", NULL, NULL, "Radeon RX 570", NULL, NULL,"860 Evo 500",  "Blue 1", NULL, '1996-09-11', 0, NULL);
