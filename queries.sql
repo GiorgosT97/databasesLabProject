@@ -24,6 +24,6 @@ SELECT Name, Surname, orders FROM
     AS`level3` 
     WHERE level3.orders=Megisto;
 -- SIXTH
-SELECT CONCAT(senior.Name, " ", senior.Surname) AS Senior, CONCAT(junior.Name, " ", junior.Surname) AS Junior 
-FROM Administrator senior, Administrator junior WHERE senior.ID=junior.Supervisor;
+SELECT CONCAT(senior.Name, " ", senior.Surname) AS Senior, GROUP_CONCAT(junior.Name, " ", junior.Surname) AS Junior 
+FROM Administrator senior, Administrator junior WHERE senior.ID=junior.Supervisor GROUP BY senior.Name, senior.Surname;
 
