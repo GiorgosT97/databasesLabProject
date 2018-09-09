@@ -24,6 +24,7 @@ def cli_main():
                     print("Type an integer: 0, 1, 2 or 3!")
 
             if view_selection == 1:
+            # Guest VIEW 
                 #Select whether user wants to see any product or reggister as Customer
                 try:
                     guest_view_selection = int(input("Type 1 for Products View or 2 for Reggister"))
@@ -43,21 +44,45 @@ def cli_main():
                     cnx.commit()
 
             elif view_selection == 2:
-                cust_login = customer_login(cursor)
+            #Customer View 
+                #call login funcitons and get the returned dict
+                cust_login = customer_login(cursor, "Customer")
                 if cust_login['result'] == 'success':
                     customer_view_selection = int(input("Type 1 for Products View or 2 to see Points Available and 3 to place new Order\n"))
                     if customer_view_selection == 1:
+                        #Select product from db
                         product_selection(cursor)
                     if customer_view_selection == 2:
+                        #See points available
                         cursor.execute("""SELECT `Points Available` FROM `Customer Card` INNER JOIN `Customer` ON `Customer`.`ID`=`Customer Card`.`Customer_id` WHERE  `Customer Card`.`Customer_id`={0}""".format(cust_login['customer_id']))
                         result = cursor.fetchall()
                         print(result)
                     if customer_view_selection == 3:
+                        #Place new Order
                         cursor.execute(""" INSERT INTO `Order` VALUES(NULL, {0}, {1}, {2} , {3}, {4}, {5}, {6}, {7}, {8}, {9}, NULL, {10}, NULL)""".format(
-                            cust_login['customer_id'], input("CPU Model or NULL\n"), input("Motherboard Model or NULL\n"), input("RAM Model or NULL\n"),
+                            cust_login['user_id'], input("CPU Model or NULL\n"), input("Motherboard Model or NULL\n"), input("RAM Model or NULL\n"),
                             input("GPU Model or NULL\n"), input("PSU Model or NULL\n"), input("Case Model or NULL\n"), input("SSD Model or NULL\n"),
                             input("HDD Model or NULL\n"), input("External HD Model or NULL\n"), input("If products are gonna be used together type 1 else 0\n")))
                         cnx.commit()
+                
+            elif view_selection == 3:
+            #Admin View
+                admin_login = user_login(cursor, "Administrator")
+                if admin_login['result'] == 'success':
+                    while(True):
+                        try:
+                            admin_view_selection = int(input("Type 1 to View all Orders, 2 to delete a Customer and 3 to see the Queries\n"))
+                            if admin_view_selection in [1, 2, 3]:
+                                break
+                        except ValueError:
+                            print("Type an integer: 1 or 2!")
+                    
+                    if admin_view_selection == 1:
+                    #See all Orders
+                        cursor.execute("""select * from `Order`""")
+                        result = cursor.fetchall()
+                        print(result)
+
         
     finally:
         cnx.close()
@@ -74,25 +99,25 @@ def product_selection(cursor):
         elif pruduct_select == 'exit':
             return
 
-def customer_login(cursor):
-    """ User inputs username and pass and returns Success if inputs exists in DB"""
+def user_login(cursor, type):
+    """ User inputs username and pass and returns dictionary containing user ID and whether validation was successful"""
     while(True):
         validation = 0
-        #Login as Customer
+        #Login 
         #username is his ID and pass is his username field.
-        customer_username=input("Type your username\n")
-        customer_pass = getpass.getpass('Password:\n')
+        username=input("Type your username\n")
+        password = getpass.getpass('Password:\n')
         #check if customer username and pass exists
-        cursor.execute("""SELECT * FROM `Customer` WHERE ID={0}""".format(customer_username))
+        cursor.execute("""SELECT * FROM `{1}` WHERE ID={0}""".format(username, type))
         if cursor.fetchall():
             validation += 1
             print("Valid Username")
-        cursor.execute("""SELECT * FROM `Customer` WHERE `Name`="{0}" AND `ID`={1}""".format(customer_pass, customer_username))
+        cursor.execute("""SELECT * FROM `{2}` WHERE `Name`="{0}" AND `ID`={1}""".format(password, username, type))
         if cursor.fetchall():
             validation += 1
             print("Valid Pass")
         if validation == 2:
-            return {'customer_id': customer_username, 
+            return {'user_id': username, 
                     'result': 'success'}
 
 
