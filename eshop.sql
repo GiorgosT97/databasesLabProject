@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `Customer` (
   `Name` VARCHAR(45) NOT NULL,
   `Surname` VARCHAR(45) NOT NULL,
   `E-mail` VARCHAR(45) NOT NULL,
-  `Phone Number` MEDIUMINT NOT NULL,
+  `Phone Number` INT NOT NULL,
   `Registration Date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY(`ID`)
 )ENGINE = InnoDB;
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `Order` (
   `SSD` VARCHAR(30) NULL,
   `HDD` VARCHAR(30) NULL,
   `External HD` VARCHAR(30) NULL,
-  `Date` Date NOT NULL,
+  `Date` Date NULL,
   `Products Use Together` TINYINT(1) NOT NULL,
   `Sum Cost` DECIMAL(10,2) NULL,
   PRIMARY KEY (`ID`),
