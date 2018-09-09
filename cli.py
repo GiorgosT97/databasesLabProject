@@ -1,8 +1,12 @@
 import mysql.connector 
 import getpass
+import pprint
 
+#Pretty print lib
+pp = pprint.PrettyPrinter()
 
 def cli_main():
+    """ Cli for e-shop school Project"""
     #Configure mysql connection
     cnx = mysql.connector.connect(user='root', password='', host='127.0.0.1', database='eshop')
 
@@ -31,9 +35,11 @@ def cli_main():
                 except ValueError:
                     print("Type an integer: 1 or 2!")
                 if guest_view_selection == 1:
+                    #See selected product table
                     product_selection(cursor) 
 
                 elif guest_view_selection == 2:
+                    #Customer Reggistration
                     cust_name = input("What is your Name, new Customer?\n")
                     cust_sur_name = input("What is your Surname, new Customer?\n")
                     cust_email = input("What is your E-mail, new Customer?\n")
@@ -46,7 +52,7 @@ def cli_main():
             elif view_selection == 2:
             #Customer View 
                 #call login funcitons and get the returned dict
-                cust_login = customer_login(cursor, "Customer")
+                cust_login = user_login(cursor, "Customer")
                 if cust_login['result'] == 'success':
                     customer_view_selection = int(input("Type 1 for Products View or 2 to see Points Available and 3 to place new Order\n"))
                     if customer_view_selection == 1:
@@ -56,7 +62,7 @@ def cli_main():
                         #See points available
                         cursor.execute("""SELECT `Points Available` FROM `Customer Card` INNER JOIN `Customer` ON `Customer`.`ID`=`Customer Card`.`Customer_id` WHERE  `Customer Card`.`Customer_id`={0}""".format(cust_login['customer_id']))
                         result = cursor.fetchall()
-                        print(result)
+                        pp.pprint(result)
                     if customer_view_selection == 3:
                         #Place new Order
                         cursor.execute(""" INSERT INTO `Order` VALUES(NULL, {0}, {1}, {2} , {3}, {4}, {5}, {6}, {7}, {8}, {9}, NULL, {10}, NULL)""".format(
@@ -83,7 +89,26 @@ def cli_main():
                         result = cursor.fetchall()
                         print(result)
 
-        
+                    elif admin_view_selection == 2:
+                    #Delete Customer
+                        delete_cust_id = input("Type customers ID to be deleted or abort to cancel deletion.")
+                        if delete_cust_id == "abort":
+                            #return to select custmer guest or admin view
+                            continue
+                        else:
+                            try: 
+                                #deleting customer
+                                cursor.execute(""" DELETE FROM `Customer` WHERE `ID`={}""".format(int(delete_cust_id)))
+                                #commiting to DB the deletion
+                                cnx.commit()
+                            except ValueError:
+                                print("Customer ID is an Integer!")
+
+                    elif admin_view_selection == 3:
+                    #See all the queries
+                        file = open("queries.sql", "r")
+                        pp.pprint(file.readlines())
+                        file.close()      
     finally:
         cnx.close()
 
