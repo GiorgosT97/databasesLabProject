@@ -1,3 +1,4 @@
+""" CLI for E Shop school Project """ 
 import mysql.connector 
 import getpass
 import pprint
@@ -6,7 +7,7 @@ import pprint
 pp = pprint.PrettyPrinter()
 
 def cli_main():
-    """ Cli for e-shop school Project"""
+    """ Main Function for the CLI"""
     #Configure mysql connection
     cnx = mysql.connector.connect(user='root', password='', host='127.0.0.1', database='eshop')
 
@@ -31,7 +32,7 @@ def cli_main():
             # Guest VIEW 
                 #Select whether user wants to see any product or reggister as Customer
                 try:
-                    guest_view_selection = int(input("Type 1 for Products View or 2 for Reggister"))
+                    guest_view_selection = int(input("Type 1 for Products View or 2 for Reggister\n"))
                 except ValueError:
                     print("Type an integer: 1 or 2!")
                 if guest_view_selection == 1:
@@ -91,7 +92,7 @@ def cli_main():
 
                     elif admin_view_selection == 2:
                     #Delete Customer
-                        delete_cust_id = input("Type customers ID to be deleted or abort to cancel deletion.")
+                        delete_cust_id = input("Type customers ID to be deleted or abort to cancel deletion.\n")
                         if delete_cust_id == "abort":
                             #return to select custmer guest or admin view
                             continue
