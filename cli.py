@@ -2,6 +2,7 @@
 import mysql.connector 
 import getpass
 import pprint
+import datetime
 
 #Pretty print lib
 pp = pprint.PrettyPrinter()
@@ -61,15 +62,17 @@ def cli_main():
                         product_selection(cursor)
                     if customer_view_selection == 2:
                         #See points available
-                        cursor.execute("""SELECT `Points Available` FROM `Customer Card` INNER JOIN `Customer` ON `Customer`.`ID`=`Customer Card`.`Customer_id` WHERE  `Customer Card`.`Customer_id`={0}""".format(cust_login['customer_id']))
+                        cursor.execute("""SELECT `Points Available` FROM `Customer Card` INNER JOIN `Customer` ON `Customer`.`ID`=`Customer Card`.`Customer_id` WHERE  `Customer Card`.`Customer_id`={0}""".format(cust_login['user_id']))
                         result = cursor.fetchall()
                         pp.pprint(result)
                     if customer_view_selection == 3:
                         #Place new Order
-                        cursor.execute(""" INSERT INTO `Order` VALUES(NULL, {0}, {1}, {2} , {3}, {4}, {5}, {6}, {7}, {8}, {9}, NULL, {10}, NULL)""".format(
+                        date = str(datetime.datetime.now()).split(' ')[0]
+                        cursor.execute(""" INSERT INTO `Order` VALUES(NULL, {0}, {1}, {2} , {3}, {4}, {5}, {6}, {7}, {8}, {9}, "{11}", {10}, NULL)""".format(
                             cust_login['user_id'], input("CPU Model or NULL\n"), input("Motherboard Model or NULL\n"), input("RAM Model or NULL\n"),
                             input("GPU Model or NULL\n"), input("PSU Model or NULL\n"), input("Case Model or NULL\n"), input("SSD Model or NULL\n"),
-                            input("HDD Model or NULL\n"), input("External HD Model or NULL\n"), input("If products are gonna be used together type 1 else 0\n")))
+                            input("HDD Model or NULL\n"), input("External HD Model or NULL\n"), input("If products are gonna be used together type 1 else 0\n"),
+                            date))
                         cnx.commit()
                 
             elif view_selection == 3:
